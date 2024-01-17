@@ -5,9 +5,10 @@
             <article class="media content-section">
                 <div class="media-body">
                     <div class="article-metadata">
-                        <a class="mr-2" href="#">{{ post.author }}</a>
-                        <a class="mr-2" href="#">for {{ post.emp }}</a>
-                        <small class="text-muted">{{ post.date_posted }}</small>
+                        // for now  as we don't have manger and user name in table
+                        <a class="mr-2" href="#">{{ post.points }}</a>
+                        <small class="text-muted">{{ post.timestamp }}</small>
+                        <a class="mr-2" href="#">for {{ post.user_id }}</a>
                     </div>
                     <p class="article-content">{{ post.content }}</p>
                 </div>
