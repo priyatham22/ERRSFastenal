@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1 style="color: red; font-size: 100px;">Leaderboard page</h1>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Username</th>
+            <th scope="col">Points</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in range(0, len) %}
+            <tr>
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ details[i].user }}</td>
+                <td>{{ details[i].points }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}
