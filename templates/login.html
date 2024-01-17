@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block content %}
+<!-- TODO: need to make a seperate page but using layout for now -->
+    <div class="content-section">
+        <h1 class="account-heading">Login</h1>
+        <form method="post" action="{{ url_for('login') }}">
+            <label for="username">Username:</label>
+            <input type="text" name="username" required><br>
+            <label for="password">Password:</label>
+            <input type="password" name="password" required><br>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+        {% if message %}
+            <p style="color: red;">{{ message }}</p>
+        {% endif %}
+    </div>
+{% endblock content %}
