@@ -1,10 +1,11 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, request, redirect, session, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:password@localhost/temp_ERP'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.secret_key = 'secret_key'
 db = SQLAlchemy(app)
 
 
@@ -33,6 +34,24 @@ class Post(db.Model):
 def home():
     posts = Post.query.all()
     return render_template('home.html', posts=posts)
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+
+        user = User.query.filter_by(username=username, password=password).first()
+
+        if user:
+            session['username'] = username
+            session['user_id'] = user.user_id
+            session['is_manager'] = user.is_manager
+            return redirect(url_for('home'))
+        else:
+            return render_template('login.html', message='Invalid credentials. Please try again.')
+
+    return render_template('login.html', message=None)
 
 @app.route("/new_blog")
 def new_blog():
