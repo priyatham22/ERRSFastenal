@@ -25,7 +25,7 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('Users.user_id'), nullable=False)
     content = db.Column(db.Text, nullable=False)
     category = db.Column(db.String(50), nullable=False)
-    points = db.Column(db.Integer, nullable=False) 
+    points = db.Column(db.Integer, nullable=False, default=0) 
     timestamp = db.Column(db.DateTime, default=db.func.current_timestamp(), nullable=False)
     user = db.relationship('User', backref='posts')
 
@@ -70,7 +70,7 @@ def new_blog():
             employee.points += points
             db.session.commit()
 
-        new_post = Post(user_id=employee_id, content=post_content, category=category)
+        new_post = Post(user_id=employee_id, content=post_content, category=category, points=points)
         db.session.add(new_post)
         db.session.commit()
 
@@ -82,7 +82,7 @@ def new_blog():
         employees = User.query.filter_by(manager_id=manager_id).all()
 
         employee_choices = [(employee.user_id, f"{employee.name} ({employee.user_id})") for employee in employees]
-        return render_template('createPost.html', employee_choices=employee_choices)
+        return render_template('new_blog.html', employee_choices=employee_choices)
 
 @app.route("/leaderboard")
 def leaderboard():
