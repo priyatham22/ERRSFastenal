@@ -53,9 +53,36 @@ def login():
 
     return render_template('login.html', message=None)
 
-@app.route("/new_blog")
+@app.route("/new_blog", methods=['GET', 'POST'])
 def new_blog():
-    return render_template('new_blog.html', title = 'New Post')
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+
+    if request.method == 'POST':
+
+        employee_id = request.form.get('employee_id')
+        post_content = request.form.get('post_content')
+        category = request.form.get('category')
+        points = int(request.form.get('points'))
+
+        employee = db.session.get(User, employee_id)
+        if employee:
+            employee.points += points
+            db.session.commit()
+
+        new_post = Post(user_id=employee_id, content=post_content, category=category)
+        db.session.add(new_post)
+        db.session.commit()
+
+        return redirect(url_for('home'))
+
+    else:
+
+        manager_id = session['user_id'] 
+        employees = User.query.filter_by(manager_id=manager_id).all()
+
+        employee_choices = [(employee.user_id, f"{employee.name} ({employee.user_id})") for employee in employees]
+        return render_template('createPost.html', employee_choices=employee_choices)
 
 @app.route("/leaderboard")
 def leaderboard():
