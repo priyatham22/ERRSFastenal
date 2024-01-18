@@ -60,7 +60,7 @@ def login():
             session['username'] = username
             session['user_id'] = user.user_id
             session['is_manager'] = user.is_manager
-            return redirect(url_for('home'))
+            return redirect(url_for('feed'))
         else:
             return render_template('login.html', message='Invalid credentials. Please try again.')
 
@@ -87,7 +87,7 @@ def new_blog():
         db.session.add(new_post)
         db.session.commit()
 
-        return redirect(url_for('home'))
+        return redirect(url_for('feed'))
 
     else:
 
