@@ -11,6 +11,8 @@ body {
     margin-bottom: 1rem;
 }
 .content-section {
+    margin-left: 15rem;
+    margin-right: 15rem;
     background: #ffffff;
     padding: 10px 20px;
     border: 1px solid #dddddd;

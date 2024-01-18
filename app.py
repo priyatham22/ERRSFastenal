@@ -86,14 +86,14 @@ def new_blog():
         employees = User.query.filter_by(manager_id=manager_id).all()
 
         employee_choices = [(employee.user_id, f"{employee.name} ({employee.user_id})") for employee in employees]
-        return render_template('new_blog.html', title = 'New Post', employee_choices=employee_choices, session = session)
+        return render_template('new_blog.html', title = 'New Post', employee_choices=employee_choices)
 
 @app.route("/leaderboard")
 def leaderboard():
     if 'user_id' not in session:
         return redirect(url_for('login'))
     details = User.query.with_entities(User.username, User.points).order_by(User.points.desc()).all()
-    return render_template('leaderboard.html', title = 'leaderboard', len = len(details), details = details, session = session)
+    return render_template('leaderboard.html', title = 'leaderboard', len = len(details), details = details)
 
 if __name__ == '__main__':
     app.run(debug=True)
