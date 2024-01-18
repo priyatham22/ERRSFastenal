@@ -1,4 +1,4 @@
-### Testing Instructions
+### Local setup
  - Clone 
  -  set up virtual env 
  - `pip install -r requirements` to install everything
