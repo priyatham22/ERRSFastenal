@@ -62,6 +62,10 @@ body {
 
 
 footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
     margin-top: 10rem;
     background-color: #212529;
     text-align: center;

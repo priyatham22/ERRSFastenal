@@ -64,6 +64,10 @@ details = [
 ]
 
 @app.route("/")
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+    return render_template('login.html')
+
 @app.route("/home")
 def home():
     return render_template('home.html', posts = posts)
