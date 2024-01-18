@@ -104,5 +104,10 @@ def leaderboard():
     details = User.query.with_entities(User.username, User.points).order_by(User.points.desc()).all()
     return render_template('leaderboard.html', title = 'leaderboard', len = len(details), details = details)
 
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for('home'))
+    
 if __name__ == '__main__':
     app.run(debug=True)
