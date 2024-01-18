@@ -29,16 +29,25 @@ class Post(db.Model):
     timestamp = db.Column(db.DateTime, default=db.func.current_timestamp(), nullable=False)
     user = db.relationship('User', backref='posts')
 
+
+
+
+@app.route("/")
 @app.route("/home")
 def home():
+    return render_template('home.html', title = 'Home')
+
+
+@app.route("/feed")
+def feed():
     posts = Post.query.all()
-    return render_template('home.html', posts=posts, session = session)
+    return render_template('feed.html', posts=posts, session = session)
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     return render_template('register.html', title = 'Register')
 
-@app.route("/")
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
