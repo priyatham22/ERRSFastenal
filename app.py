@@ -29,16 +29,16 @@ class Post(db.Model):
     timestamp = db.Column(db.DateTime, default=db.func.current_timestamp(), nullable=False)
     user = db.relationship('User', backref='posts')
 
-@app.route("/")
-@app.route("/login", methods=['GET', 'POST'])
-def login():
-    return render_template('login.html')
-
 @app.route("/home")
 def home():
     posts = Post.query.all()
     return render_template('home.html', posts=posts)
 
+@app.route("/register", methods=['GET', 'POST'])
+def register():
+    return render_template('register.html')
+
+@app.route("/")
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -90,6 +90,8 @@ def new_blog():
 
 @app.route("/leaderboard")
 def leaderboard():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
     details = User.query.with_entities(User.username, User.points).order_by(User.points.desc()).all()
     return render_template('leaderboard.html', title = 'leaderboard', len = len(details), details = details)
 
