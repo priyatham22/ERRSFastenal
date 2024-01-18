@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
 <!-- TODO: need to make a seperate page but using layout for now -->
-    <div class="content-section">
+    <!-- <div class="content-section">
         <h1 class="account-heading">Login</h1>
         <form method="post" action="{{ url_for('login') }}">
             <label for="username">Username:</label>
@@ -14,5 +14,37 @@
         {% if message %}
             <p style="color: red;">{{ message }}</p>
         {% endif %}
-    </div>
+    </div> -->
+
+<div class="login">
+    <main class="form-signin w-100 m-auto">
+        <form method="post" action="{{ url_for('login') }}">
+          <!-- <img class="mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
+          <h1 class="h3 mb-3 fw-normal">ERRS Fastenal</h1>
+      
+          <div class="form-floating">
+            <input type="text" class="form-control" placeholder="name@example.com" name="username" required>
+            <label for="floatingInput">Username</label>
+          </div>
+          <div class="form-floating">
+            <input type="password" class="form-control" placeholder="Password" name="password" required>
+            <label for="floatingPassword">Password</label>
+          </div>
+          <!-- for remember me functionality  -->
+          <!-- <div class="form-check text-start my-3">
+            <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+              Remember me
+            </label>
+          </div> -->
+
+          <button class="submit btn btn-primary w-100 py-2" type="submit">Login</button>
+        </form>
+        <p>Not an existing user? <a href="/register">Register</a></p>
+        {% if message %}
+            <p style="color: red;">{{ message }}</p>
+        {% endif %}
+      </main>
+</div>
+    
 {% endblock content %}

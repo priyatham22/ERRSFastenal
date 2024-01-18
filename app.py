@@ -36,7 +36,7 @@ def home():
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
-    return render_template('register.html')
+    return render_template('register.html', title = 'Register')
 
 @app.route("/")
 @app.route('/login', methods=['GET', 'POST'])
@@ -55,7 +55,7 @@ def login():
         else:
             return render_template('login.html', message='Invalid credentials. Please try again.')
 
-    return render_template('login.html', message=None)
+    return render_template('login.html', title = 'Login', message=None)
 
 @app.route("/new_blog", methods=['GET', 'POST'])
 def new_blog():
@@ -86,7 +86,7 @@ def new_blog():
         employees = User.query.filter_by(manager_id=manager_id).all()
 
         employee_choices = [(employee.user_id, f"{employee.name} ({employee.user_id})") for employee in employees]
-        return render_template('new_blog.html', employee_choices=employee_choices)
+        return render_template('new_blog.html', title = 'New Post', employee_choices=employee_choices)
 
 @app.route("/leaderboard")
 def leaderboard():

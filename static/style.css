@@ -3,7 +3,13 @@ body {
     margin-top: 5rem;
 }
 
-
+.login {
+    padding: 2rem 25rem;
+}
+.submit {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
 .content-section {
     background: #ffffff;
     padding: 10px 20px;
