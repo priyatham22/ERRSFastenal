@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:password@localhost/temp_ERP'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:mayank14@localhost/sys'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'secret_key'
 db = SQLAlchemy(app)
@@ -30,13 +30,10 @@ class Post(db.Model):
     user = db.relationship('User', backref='posts')
 
 
-
-
 @app.route("/")
 @app.route("/home")
 def home():
     return render_template('home.html',title='Home')
-
 
 @app.route("/feed")
 def feed():
@@ -46,7 +43,6 @@ def feed():
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     return render_template('register.html', title = 'Register')
-
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -60,7 +56,7 @@ def login():
             session['username'] = username
             session['user_id'] = user.user_id
             session['is_manager'] = user.is_manager
-            return redirect(url_for('home'))
+            return redirect(url_for('feed'))
         else:
             return render_template('login.html', message='Invalid credentials. Please try again.')
 
@@ -87,7 +83,7 @@ def new_blog():
         db.session.add(new_post)
         db.session.commit()
 
-        return redirect(url_for('home'))
+        return redirect(url_for('feed'))
 
     else:
 
@@ -104,5 +100,10 @@ def leaderboard():
     details = User.query.with_entities(User.username, User.points).order_by(User.points.desc()).all()
     return render_template('leaderboard.html', title = 'leaderboard', len = len(details), details = details)
 
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for('home'))
+    
 if __name__ == '__main__':
     app.run(debug=True)
