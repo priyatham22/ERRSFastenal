@@ -33,11 +33,9 @@ class Post(db.Model):
 
 
 @app.route("/")
-
-
 @app.route("/home")
 def home():
-    return render_template('home.html',title="Home")
+    return render_template('home.html',title='Home')
 
 
 @app.route("/feed")
