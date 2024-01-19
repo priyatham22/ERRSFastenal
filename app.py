@@ -5,7 +5,7 @@ from sqlalchemy.sql import func
 from datetime import datetime
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:password@localhost/errp_project'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:mayank14@localhost/sys'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'secret_key'
 db = SQLAlchemy(app)
@@ -34,7 +34,9 @@ class Post(db.Model):
 class likes(db.Model):
     __tablename__ = 'likes'  
     user_id = db.Column(db.Integer, db.ForeignKey('Posts.post_id'),primary_key=True)
-    post_id = db.Column(db.Integer, db.ForeignKey('Users.user_id'),primary_key=True)  
+    post_id = db.Column(db.Integer, db.ForeignKey('Users.user_id'),primary_key=True)
+
+
 
 @app.route("/")
 @app.route("/home")
