@@ -33,12 +33,12 @@ class Post(db.Model):
 @app.route("/")
 @app.route("/home")
 def home():
-    return render_template('home.html', title = 'Home')
+    return render_template('home.html',title='Home')
 
 @app.route("/feed")
 def feed():
-    posts = Post.query.all()
-    return render_template('feed.html', posts=posts, session = session)
+    data=[{'user_name': 'abhishek', 'manager_name': 'Ram', 'category': 'teamwork', 'post_points': 100, 'content': 'good work keep it up',"time":"02-13-2002"}, {'user_name': 'rahul', 'manager_name': 'Ram', 'category': 'Intigrity', 'post_points': 199, 'content': 'kepp up and do good job',"time":"02-13-2002"}]
+    return render_template('feed.html', posts=data, session = session)
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
