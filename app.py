@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session, url_for
+from flask import Flask, render_template, request, redirect, session, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
@@ -29,15 +29,6 @@ class Post(db.Model):
     timestamp = db.Column(db.DateTime, default=db.func.current_timestamp(), nullable=False)
     user = db.relationship('User', backref='posts')
 
-@app.route("/home")
-def home():
-    posts = Post.query.all()
-    return render_template('home.html', posts=posts, session = session)
-
-@app.route("/register", methods=['GET', 'POST'])
-def register():
-    return render_template('register.html', title = 'Register')
-
 @app.route("/")
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -57,6 +48,19 @@ def login():
 
     return render_template('login.html', title = 'Login', message=None)
 
+
+
+@app.route("/register", methods=['GET', 'POST'])
+def register():
+    return render_template('register.html', title = 'Register')
+
+
+@app.route("/home")
+def home():
+    posts = Post.query.all()
+    return render_template('home.html', posts=posts, session = session)
+
+
 @app.route("/new_blog", methods=['GET', 'POST'])
 def new_blog():
     if 'user_id' not in session:
@@ -70,6 +74,7 @@ def new_blog():
         points = int(request.form.get('points'))
 
         employee = db.session.get(User, employee_id)
+        
         if employee:
             employee.points += points
             db.session.commit()
@@ -95,5 +100,44 @@ def leaderboard():
     details = User.query.with_entities(User.username, User.points).order_by(User.points.desc()).all()
     return render_template('leaderboard.html', title = 'leaderboard', len = len(details), details = details)
 
+
+@app.route('/redeem')
+def redeem():
+    employee=session['user_id']
+    employee_points = User.query.filter_by(user_id=employee).first()
+    if employee_points:
+        points = employee_points.points
+        return render_template('redeem.html', points=points)
+
+
+@app.route('/redeem_points', methods=['GET', 'POST'])
+def redeem_points():
+    employee = session['user_id']
+    employee_points = User.query.filter_by(user_id=employee).first()
+
+    if employee_points:
+        points = employee_points.points
+
+        if request.method == 'POST':
+            success_messages = []
+            error_messages = []
+            for option in ['zomato', 'amazon', 'boat', 'stationary']:
+                enabled_key = f"{option}_enabled"
+                points_key = f"{option}_points"
+
+                if request.form.get(enabled_key) == 'on':
+                    required_points = int(request.form.get(points_key, 0))
+
+                    if employee_points.points >= required_points:
+                        employee_points.points -= required_points
+                        db.session.commit()                   
+                        success_messages.append(f'Redeemed {option.capitalize()} successfully! {required_points} points deducted.')
+                    else:
+                        error_messages.append(f'Insufficient points to redeem {option.capitalize()}.')
+            if success_messages:
+                        return render_template('redeem_success.html', success_messages=success_messages, points=employee_points.points)
+            elif error_messages:
+                        return render_template('redeem_success.html', error_messages=error_messages, points=employee_points.points)
+        return render_template('redeem.html', points=points)
 if __name__ == '__main__':
     app.run(debug=True)

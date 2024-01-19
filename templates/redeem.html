@@ -1,11 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Redeem Points</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
+<script>
+    function updateDropdownEnabled(option, userPoints) {
+        var enabledCheckbox = document.getElementById(option + '_enabled');
+        var pointsDropdown = document.getElementById(option + '_points');
+        var options = pointsDropdown.options;
+        if (enabledCheckbox.checked) 
+        { 
+            pointsDropdown.disabled = userPoints < parseInt(pointsDropdown.value);
+            for (var i = 0; i < options.length; i++) {
+                options[i].style.display = (parseInt(options[i].value) <= userPoints) ? 'block' : 'none';
+            }
+        } else 
+        {
+            pointsDropdown.disabled = true;
+            for (var i = 0; i < options.length; i++) {
+                options[i].style.display = 'block';
+            }
+        }
+    }
+</script>
 <body>
-    
+    <div class="container">
+        <div class="container">
+            <h1>Redeem Your Points</h1>
+            <form action="{{ url_for('redeem_points') }}" method="post">
+                <h1>{{ points }}</h1>
+
+                <label for="zomato">Zomato Gift Voucher:</label>
+                <input type="checkbox" name="zomato_enabled" id="zomato_enabled"
+                    onclick="updateDropdownEnabled('zomato', {{ points }})">
+                <select name="zomato_points" id="zomato_points" disabled>
+                    <option value="50">50 Points</option>
+                    <option value="100">100 Points</option>
+                    <option value="200">200 Points</option>
+                </select>
+
+                <label for="amazon">Amazon Gift Card:</label>
+                <input type="checkbox" name="amazon_enabled" id="amazon_enabled"
+                    onclick="updateDropdownEnabled('amazon', {{ points }})">
+                <select name="amazon_points" id="amazon_points" disabled>
+                    <option value="50">50 Points</option>
+                    <option value="100">100 Points</option>
+                    <option value="200">200 Points</option>
+                </select>
+
+                <label for="boat">Boat Products Voucher:</label>
+                <input type="checkbox" name="boat_enabled" id="boat_enabled"
+                    onclick="updateDropdownEnabled('boat', {{ points }})">
+                <select name="boat_points" id="boat_points" disabled>
+                    <option value="50">50 Points</option>
+                    <option value="100">100 Points</option>
+                    <option value="200">200 Points</option>
+                </select>
+
+                <label for="stationary">Stationary Gift Card:</label>
+                <input type="checkbox" name="stationary_enabled" id="stationary_enabled"
+                    onclick="updateDropdownEnabled('stationary', {{ points }})">
+                <select name="stationary_points" id="stationary_points" disabled>
+                    <option value="15">15 Points</option>
+                    <option value="50">50 Points</option>
+                    <option value="100">100 Points</option>
+                </select>
+                <button type="submit">Redeem Points</button>
+            </form>
+        </div>
 </body>
 </html>
