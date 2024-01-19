@@ -79,15 +79,26 @@ body {
 
 .leaderboard {
     margin: 5rem 10rem;
+    border: 2px solid black;
 }
 
+.bg-leaderboard {
+    background-image: url('/static/img/leaderboard-img.jpg');
+    opacity: 0.8;
+    height: 100%;
+    padding-top: 150px;
+    padding-bottom: 150px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 
 footer {
     /* position: fixed; */
     left: 0;
     bottom: 0;
     width: 100%;
-    margin-top: 10rem;
+    margin-top: 5rem;
     background-color: #212529;
     text-align: center;
     padding: 3rem;
