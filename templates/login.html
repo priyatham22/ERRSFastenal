@@ -1,20 +1,5 @@
 {% extends "layout.html" %}
 {% block content %}
-<!-- TODO: need to make a seperate page but using layout for now -->
-    <!-- <div class="content-section">
-        <h1 class="account-heading">Login</h1>
-        <form method="post" action="{{ url_for('login') }}">
-            <label for="username">Username:</label>
-            <input type="text" name="username" required><br>
-            <label for="password">Password:</label>
-            <input type="password" name="password" required><br>
-            <button type="submit" class="btn btn-primary">Login</button>
-            <p>Not an existing user? <a href="/register">Register</a></p>
-        </form>
-        {% if message %}
-            <p style="color: red;">{{ message }}</p>
-        {% endif %}
-    </div> -->
 
 <div class="login">
     <main class="form-signin w-100 m-auto">
@@ -40,7 +25,7 @@
 
           <button class="submit btn btn-primary w-100 py-2" type="submit">Login</button>
         </form>
-        <p>Not an existing user? <a href="/register">Register</a></p>
+        <!-- <p>Not an existing user? <a href="/register">Register</a></p> -->
         {% if message %}
             <p style="color: red;">{{ message }}</p>
         {% endif %}
