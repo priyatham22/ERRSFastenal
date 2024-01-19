@@ -145,6 +145,7 @@ def redeem_points():
                         success_messages.append(f'Redeemed {option.capitalize()} voucher successfully!, {required_points} points deducted.')
                     else:
                         error_messages.append(f'Insufficient points to redeem {option.capitalize()}.')
+                        
             if success_messages:
                         return render_template('redeem_success.html', success_messages=success_messages, points=employee_points.points)
             elif error_messages:
