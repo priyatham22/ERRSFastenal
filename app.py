@@ -57,7 +57,7 @@ def feed():
             Post.category,
             Post.points,
             Post.content,
-            func.date(Post.timestamp).label('timestamp')
+            func.date_format(Post.timestamp,'%d/%m/%Y').label('timestamp')
         )
         .select_from(Post)
         .join(u, Post.user_id == u.user_id)
