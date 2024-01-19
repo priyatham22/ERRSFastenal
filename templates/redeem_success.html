@@ -1,18 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redeem Success</title>
-</head>
-<body>
-    <div>
-        <h1>Redemption Successful!</h1>
-        <p>Congratulations! You have successfully redeemed the following items:</p>
-        <h1>{{success_messages}}</h1>
+{% extends "layout.html" %}
+{% block content %}
+    <div class="container">
+        
+        <h1>Congratulations!</h1>
+        <h2>{{success_messages}}</h2>
         <ul>
         </ul>
-        <p>Your updated points balance: {{ points }}</p>
+        <h3>Your updated points balance: {{ points }}</h3>
     </div>
-</body>
-</html>
+{% endblock %}

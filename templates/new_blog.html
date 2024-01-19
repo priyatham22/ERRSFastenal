@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
+<div class="custom-styles">
     <div class="content-section">
         <h2 class="article-title">Create a New Post</h2>
 
@@ -15,30 +16,17 @@
 
             <div class="form-group">
                 <label for="post_content">Post Content:</label>
-                <textarea id="post_content" name="post_content" class="form-control" rows="4" cols="50" required></textarea>
+                <textarea id="post_content" name="post_content" class="form-control" rows="3" required></textarea>
             </div>
 
             <div class="form-group">
                 <label>Category:</label>
-                <div class="form-check">
-                    <input type="radio" id="innovation" name="category" value="Innovation" class="form-check-input" required>
-                    <label for="innovation" class="form-check-label">Innovation</label>
-                </div>
-
-                <div class="form-check">
-                    <input type="radio" id="integrity" name="category" value="Integrity" class="form-check-input" required>
-                    <label for="integrity" class="form-check-label">Integrity</label>
-                </div>
-
-                <div class="form-check">
-                    <input type="radio" id="ambition" name="category" value="Ambition" class="form-check-input" required>
-                    <label for="ambition" class="form-check-label">Ambition</label>
-                </div>
-
-                <div class="form-check">
-                    <input type="radio" id="teamwork" name="category" value="Teamwork" class="form-check-input" required>
-                    <label for="teamwork" class="form-check-label">Teamwork</label>
-                </div>
+                {% for category in ['Innovation', 'Integrity', 'Ambition', 'Teamwork'] %}
+                <div class="form-check form-check-inline">
+                        <input type="radio" id="{{ category.lower() }}" name="category" value="{{ category }}" class="form-check-input" required>
+                        <label for="{{ category.lower() }}" class="form-check-label">{{ category }}</label>
+                    </div>
+                {% endfor %}
             </div>
 
             <div class="form-group">
@@ -50,8 +38,9 @@
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Create Post" class="btn btn-primary submit">
+                <button type="submit" class="btn btn-primary">Create Post</button>
             </div>
         </form>
     </div>
+</div>
 {% endblock %}

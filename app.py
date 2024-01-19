@@ -29,7 +29,18 @@ class Post(db.Model):
     timestamp = db.Column(db.DateTime, default=db.func.current_timestamp(), nullable=False)
     user = db.relationship('User', backref='posts')
 
+
 @app.route("/")
+@app.route("/home")
+def home():
+    return render_template('home.html',title='Home')
+
+@app.route("/feed")
+def feed():
+    data=[{'user_name': 'abhishek', 'manager_name': 'Ram', 'category': 'teamwork', 'post_points': 100, 'content': 'good work keep it up',"time":"02-13-2002"}, {'user_name': 'rahul', 'manager_name': 'Ram', 'category': 'Intigrity', 'post_points': 199, 'content': 'kepp up and do good job',"time":"02-13-2002"}]
+    return render_template('feed.html', posts=data, session = session)
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -42,7 +53,7 @@ def login():
             session['username'] = username
             session['user_id'] = user.user_id
             session['is_manager'] = user.is_manager
-            return redirect(url_for('home'))
+            return redirect(url_for('feed'))
         else:
             return render_template('login.html', message='Invalid credentials. Please try again.')
 
@@ -54,11 +65,6 @@ def login():
 def register():
     return render_template('register.html', title = 'Register')
 
-
-@app.route("/home")
-def home():
-    posts = Post.query.all()
-    return render_template('home.html', posts=posts, session = session)
 
 
 @app.route("/new_blog", methods=['GET', 'POST'])
@@ -83,7 +89,7 @@ def new_blog():
         db.session.add(new_post)
         db.session.commit()
 
-        return redirect(url_for('home'))
+        return redirect(url_for('feed'))
 
     else:
 
@@ -100,14 +106,19 @@ def leaderboard():
     details = User.query.with_entities(User.username, User.points).order_by(User.points.desc()).all()
     return render_template('leaderboard.html', title = 'leaderboard', len = len(details), details = details)
 
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for('home'))
+    
 
-@app.route('/redeem')
-def redeem():
-    employee=session['user_id']
-    employee_points = User.query.filter_by(user_id=employee).first()
-    if employee_points:
-        points = employee_points.points
-        return render_template('redeem.html', points=points)
+# @app.route('/redeem')
+# def redeem():
+#     employee=session['user_id']
+#     employee_points = User.query.filter_by(user_id=employee).first()
+#     if employee_points:
+#         points = employee_points.points
+#         return render_template('redeem.html', points=points)
 
 
 @app.route('/redeem_points', methods=['GET', 'POST'])
@@ -121,7 +132,7 @@ def redeem_points():
         if request.method == 'POST':
             success_messages = []
             error_messages = []
-            for option in ['zomato', 'amazon', 'boat', 'stationary']:
+            for option in ['zomato', 'amazon', 'boat', 'stationary', 'vacation']:
                 enabled_key = f"{option}_enabled"
                 points_key = f"{option}_points"
 
@@ -131,7 +142,7 @@ def redeem_points():
                     if employee_points.points >= required_points:
                         employee_points.points -= required_points
                         db.session.commit()                   
-                        success_messages.append(f'Redeemed {option.capitalize()} successfully! {required_points} points deducted.')
+                        success_messages.append(f'Redeemed {option.capitalize()} voucher successfully!, {required_points} points deducted.')
                     else:
                         error_messages.append(f'Insufficient points to redeem {option.capitalize()}.')
             if success_messages:
@@ -139,5 +150,6 @@ def redeem_points():
             elif error_messages:
                         return render_template('redeem_success.html', error_messages=error_messages, points=employee_points.points)
         return render_template('redeem.html', points=points)
+   
 if __name__ == '__main__':
     app.run(debug=True)
