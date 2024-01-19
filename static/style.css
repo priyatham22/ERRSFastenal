@@ -116,3 +116,42 @@ footer {
     color: white;
     opacity: 1;
 }
+.custom-styles .form-group {
+    margin-bottom: 20px;
+}
+
+.custom-styles label {
+    font-weight: bold;
+}
+
+.custom-styles h2 {
+    color: #428bca;
+    margin-bottom: 30px;
+}
+
+.custom-styles .btn-primary {
+    background-color: #428bca;
+    border: none;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.custom-styles .btn-primary:hover {
+    background-color: #3071a9;
+}
+
+.custom-styles .content-section {
+    margin: 0 15rem;
+    background: #ffffff;
+    padding: 30px;
+    border: 3px solid #428bca;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    margin-top: 150px;
+}
+
+.custom-styles select,
+.custom-styles textarea {
+    border: 2px solid #428bca; 
+    border-radius: 5px;
+    padding: 8px;
+}
