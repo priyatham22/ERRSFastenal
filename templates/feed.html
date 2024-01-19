@@ -7,7 +7,7 @@
                 <!-- Circular Box for Avatar, Manager Name, Employee Name, and Points -->
                 <div class="avatar-box">
                     <div class="avatar-info">
-                        <img src="/static/img/profile.jpg" alt="M" class="avatar">
+                        <img src="/static/img/profile.png" alt="M" class="avatar" style="margin-right: 2%">
                         &ensp;
                         <div><b>{{post.user_name}}</b></div>
                     </div>
@@ -24,9 +24,10 @@
                     <!-- Variable Content Goes Here -->
                     <p>{{post.content}}</p>
                     <!-- End Variable Content -->
-                    <div class="v-box">
-                        <div style="text-align: center;font-weight: bold;" class="v-sub-box">{{post.category}}</div>
-                    </div>
+                </div>
+                <div class="v-box">
+                    <!-- <div style="text-align: center;font-weight: bold;" class="v-sub-box">{{post.category}}</div> -->
+                    <button type="button" class="btn btn-light v-sub-box">{{ post.category }}</button>
                 </div>
             </div>
         </div>
