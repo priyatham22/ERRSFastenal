@@ -30,13 +30,10 @@ class Post(db.Model):
     user = db.relationship('User', backref='posts')
 
 
-
-
 @app.route("/")
 @app.route("/home")
 def home():
     return render_template('home.html', title = 'Home')
-
 
 @app.route("/feed")
 def feed():
@@ -46,7 +43,6 @@ def feed():
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     return render_template('register.html', title = 'Register')
-
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
