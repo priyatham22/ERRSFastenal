@@ -5,7 +5,7 @@ from sqlalchemy import func,update,select
 from datetime import datetime
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:password@localhost/errp_project'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:password@localhost/errp_project'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'secret_key'
 db = SQLAlchemy(app)
@@ -219,6 +219,7 @@ def Profile():
     else:
         return render_template('profile.html', title = 'New Post', id=employee_id, name=employee_name, points=employee_points, curr_points=employee_curr_points)
 
+
 @app.route("/likefunction",methods=['POST'])
 def likefunction():
     post_id=request.json.get("post_id")
@@ -233,7 +234,7 @@ def likefunction():
 
         update_user_points = (
             update(User)
-            .values(total_points=User.total_points +x, points=User.points + x)
+            .values(curr_points=User.curr_points +x, points=User.points + x)
             .where(User.user_id.in_(subquery))
         )
 
