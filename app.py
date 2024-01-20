@@ -20,7 +20,7 @@ class User(db.Model):
     manager_id = db.Column(db.Integer, nullable=True)
     is_manager = db.Column(db.Boolean, nullable=False, default=False)
     points = db.Column(db.Integer, default=0) 
-    total_points = db.Column(db.Integer, default=0) 
+    curr_points = db.Column(db.Integer, default=0) 
 
 class Post(db.Model):
     __tablename__ = 'Posts'  
@@ -154,7 +154,7 @@ def likefunction():
 
         update_user_points = (
             update(User)
-            .values(total_points=User.total_points +x, points=User.points + x)
+            .values(curr_points=User.total_points +x, points=User.points + x)
             .where(User.user_id.in_(subquery))
         )
 
