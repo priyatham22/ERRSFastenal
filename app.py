@@ -96,7 +96,6 @@ def login():
         # encrption for password -- ps: put hashed password in DB
         bcrypt = Bcrypt(app) 
         hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-        is_valid = bcrypt.check_password_hash(hashed_password)
         
         user = User.query.filter_by(username=username, password= hashed_password).first()
 
