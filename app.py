@@ -5,14 +5,14 @@ from sqlalchemy.sql import func
 from datetime import datetime
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:mayank14@localhost/sys'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:password@localhost/errp_project'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'secret_key'
 db = SQLAlchemy(app)
 
 
 class User(db.Model):
-    __tablename__ = 'Users'
+    __tablename__ = 'users'
     user_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     username = db.Column(db.String(50), unique=True, nullable=False)
@@ -20,11 +20,12 @@ class User(db.Model):
     manager_id = db.Column(db.Integer, nullable=True)
     is_manager = db.Column(db.Boolean, nullable=False, default=False)
     points = db.Column(db.Integer, default=0) 
+    total_points = db.Column(db.Integer, default=0)
 
 class Post(db.Model):
-    __tablename__ = 'Posts'  
+    __tablename__ = 'posts'  
     post_id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('Users.user_id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
     content = db.Column(db.Text, nullable=False)
     category = db.Column(db.String(50), nullable=False)
     points = db.Column(db.Integer, nullable=False, default=0) 
@@ -33,8 +34,8 @@ class Post(db.Model):
 
 class likes(db.Model):
     __tablename__ = 'likes'  
-    user_id = db.Column(db.Integer, db.ForeignKey('Posts.post_id'),primary_key=True)
-    post_id = db.Column(db.Integer, db.ForeignKey('Users.user_id'),primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('posts.post_id'),primary_key=True)
+    post_id = db.Column(db.Integer, db.ForeignKey('users.user_id'),primary_key=True)
 
 
 
@@ -90,6 +91,9 @@ def login():
 def new_blog():
     if 'user_id' not in session:
         return redirect(url_for('login'))
+        
+    if not session.get('is_manager', False):
+        return redirect(url_for('feed'))
 
     if request.method == 'POST':
 
@@ -101,6 +105,7 @@ def new_blog():
         employee = db.session.get(User, employee_id)
         if employee:
             employee.points += points
+            employee.total_points += points
             db.session.commit()
 
         new_post = Post(user_id=employee_id, content=post_content, category=category, points=points)
@@ -121,7 +126,7 @@ def new_blog():
 def leaderboard():
     if 'user_id' not in session:
         return redirect(url_for('login'))
-    details = User.query.with_entities(User.username, User.points).order_by(User.points.desc()).all()
+    details = User.query.with_entities(User.username, User.total_points).order_by(User.total_points.desc()).all()
     return render_template('leaderboard.html', title = 'leaderboard', len = len(details), details = details)
 
 @app.route("/logout")
