@@ -10,6 +10,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:mayank14@lo
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'secret_key'
 db = SQLAlchemy(app)
+bcrypt = Bcrypt(app)
 
 
 class User(db.Model):
@@ -92,14 +93,11 @@ def login():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-        
-        # encrption for password -- ps: put hashed password in DB
-        bcrypt = Bcrypt(app) 
-        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-        
-        user = User.query.filter_by(username=username, password= hashed_password).first()
 
-        if user:
+        
+        user = User.query.filter_by(username=username).first()
+
+        if user and bcrypt.check_password_hash(user.password, password):
             session['username'] = username
             session['user_id'] = user.user_id
             session['is_manager'] = user.is_manager
