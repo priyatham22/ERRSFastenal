@@ -35,6 +35,22 @@
                     </button>
                     <button type="button" class="btn btn-light v-sub-box">{{ posts[i].category }}</button>
                 </div>
+                <div><b>Date:</b> {{posts[i].timestamp}}</div>
+            </div>
+            <!-- Employee Name and Points -->
+            <div class="employee-points">
+                <div><i>Appreciated By</i> <b>{{posts[i].manager_name}}</b></div>
+                <div><b>Points:</b> {{posts[i].points}}</div>
+            </div>
+
+            <!-- Content Box with Values and V1, V2 Sub-boxes -->
+            <div class="content-box">
+                <!-- Variable Content Goes Here -->
+                <p>{{posts[i].content}}</p>
+                <!-- End Variable Content -->
+            </div>
+            <div class="v-box">
+                <button type="button" class="btn btn-light v-sub-box">{{ posts[i].category }}</button>
             </div>
         </div>
         {% endfor %}
