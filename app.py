@@ -1,7 +1,7 @@
-from flask import Flask, render_template, request, redirect, session, url_for
+from flask import Flask, render_template, request, redirect, session, url_for,jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import aliased
-from sqlalchemy.sql import func
+from sqlalchemy import func,update,select
 from datetime import datetime
 
 app = Flask(__name__)
@@ -20,6 +20,7 @@ class User(db.Model):
     manager_id = db.Column(db.Integer, nullable=True)
     is_manager = db.Column(db.Boolean, nullable=False, default=False)
     points = db.Column(db.Integer, default=0) 
+    total_points = db.Column(db.Integer, default=0) 
 
 class Post(db.Model):
     __tablename__ = 'Posts'  
@@ -31,7 +32,7 @@ class Post(db.Model):
     timestamp = db.Column(db.DateTime, default=db.func.current_timestamp(), nullable=False)
     user = db.relationship('User', backref='posts')
 
-class likes(db.Model):
+class Likes(db.Model):
     __tablename__ = 'likes'  
     user_id = db.Column(db.Integer, db.ForeignKey('Posts.post_id'),primary_key=True)
     post_id = db.Column(db.Integer, db.ForeignKey('Users.user_id'),primary_key=True)
@@ -47,21 +48,30 @@ def home():
 def feed():
     if 'user_id' not in session:
         return redirect(url_for('login'))
-    u = aliased(User, name='u')
-    m = aliased(User, name='m')
+    manager_alias = aliased(User, name="manager")
+
+    subquery = (
+        db.session.query(Likes.post_id)
+        .filter(
+            Likes.post_id == Post.post_id,
+            Likes.user_id == session["user_id"],
+        )
+        .exists()
+    )
 
     query = (
         db.session.query(
-            u.name.label('user_name'),
-            m.name.label('manager_name'),
+            User.username.label("user_name"),
+            manager_alias.username.label("manager_name"),
+            func.date_format(Post.timestamp,'%d/%m/%Y').label('timestamp'),
+            Post.post_id,
+            Post.content,
             Post.category,
             Post.points,
-            Post.content,
-            func.date_format(Post.timestamp,'%d/%m/%Y').label('timestamp')
+            subquery.label("liked"),
         )
-        .select_from(Post)
-        .join(u, Post.user_id == u.user_id)
-        .outerjoin(m, u.manager_id == m.user_id)
+        .join(manager_alias, User.manager_id == manager_alias.user_id)
+        .join(Post, User.user_id == Post.user_id)
         .order_by(Post.timestamp.desc())
     )
 
@@ -128,6 +138,53 @@ def leaderboard():
 def logout():
     session.clear()
     return redirect(url_for('home'))
+
+
+@app.route("/likefunction",methods=['POST'])
+def likefunction():
+    post_id=request.json.get("post_id")
+    liked=request.json.get("liked")
+
+    def update_points(x,post_id):
+        subquery = (
+                select(Post.user_id)
+                .where(Post.post_id == post_id) 
+                .alias('subquery')
+            )
+
+        update_user_points = (
+            update(User)
+            .values(total_points=User.total_points +x, points=User.points + x)
+            .where(User.user_id.in_(subquery))
+        )
+
+        update_post_points = (
+            update(Post)
+            .values(points=Post.points +x)
+            .where(Post.post_id == post_id)
+        )
+
+        db.session.execute(update_post_points)
+        db.session.execute(update_user_points)
+        db.session.commit()
+        
+    if liked:
+        new_likepost = Likes(user_id=session["user_id"], post_id=post_id)
+        db.session.add(new_likepost)
+        db.session.commit()
+            #updating points
+        update_points(5,post_id)
+
+    else:
+        # deleting the 
+        db.session.query(Likes).filter_by(post_id=post_id, user_id=session["user_id"]).delete()
+        db.session.commit()
+            #updating points
+        update_points(-5,post_id)
+        return jsonify({'update': True})
+        
+    return jsonify({'error': "got error"})
     
+
 if __name__ == '__main__':
     app.run(debug=True)

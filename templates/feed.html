@@ -2,8 +2,8 @@
 {% block content %}
     <div class="outer-content-section">
         {% for i in range(0, len) %}
-        <div class="container mt-5">
-            <div class="blog-post">
+        <div class="container mt-5" >
+            <div class="blog-post" id="{{posts[i].post_id}}">
                 <!-- Circular Box for Avatar, Manager Name, Employee Name, and Points -->
                 <div class="avatar-box">
                     <div class="avatar-info">
@@ -26,11 +26,17 @@
                     <!-- End Variable Content -->
                 </div>
                 <div class="v-box">
-                    <!-- <div style="text-align: center;font-weight: bold;" class="v-sub-box">{{posts[i].category}}</div> -->
+                    {%if posts[i].liked==True%}
+                    <button class="btn btn-light v-sub-box liked" onclick="unliked('{{posts[i].post_id}}')">
+                    {%else%}
+                    <button class="btn btn-light v-sub-box unliked" onclick="liked('{{posts[i].post_id}}')">
+                    {%endif%}
+                        <i class="fa fa-heart"></i>
+                    </button>
                     <button type="button" class="btn btn-light v-sub-box">{{ posts[i].category }}</button>
                 </div>
             </div>
         </div>
-        {% endfor %} 
+        {% endfor %}
+    </div>
 {% endblock content %}
-
