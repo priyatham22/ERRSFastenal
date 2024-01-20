@@ -123,7 +123,7 @@ def new_blog():
 def leaderboard():
     if 'user_id' not in session:
         return redirect(url_for('login'))
-    details = User.query.with_entities(User.username, User.points).order_by(User.points.desc()).all()
+    details = User.query.with_entities(User.username, User.total_points).order_by(User.total_points.desc()).all()
     return render_template('leaderboard.html', title = 'leaderboard', len = len(details), details = details)
 
 @app.route("/logout")
