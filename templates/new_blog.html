@@ -22,7 +22,7 @@
             <div class="form-group">
                 <label>Category:</label>
                 {% for category in ['Innovation', 'Integrity', 'Ambition', 'Teamwork'] %}
-                    <div class="form-check form-check-inline">
+                <div class="form-check form-check-inline">
                         <input type="radio" id="{{ category.lower() }}" name="category" value="{{ category }}" class="form-check-input" required>
                         <label for="{{ category.lower() }}" class="form-check-label">{{ category }}</label>
                     </div>
@@ -34,6 +34,9 @@
                 <select id="points" name="points" class="form-control" required>
                     <option value="50">50</option>
                     <option value="100">100</option>
+                    <option value="150">150</option>
+                    <option value="200">200</option>
+                    <option value="300">300</option>
                 </select>
             </div>
 

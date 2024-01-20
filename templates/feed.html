@@ -1,36 +1,42 @@
 {% extends "layout.html" %} 
 {% block content %}
-<div class="outer-content-section">
-    {% for i in range(0, len) %}
-    <div class="container mt-5">
-        <div class="blog-post">
-            <!-- Circular Box for Avatar, Manager Name, Employee Name, and Points -->
-            <div class="avatar-box">
-                <div class="avatar-info">
-                    <img src="/static/img/profile.png" alt="M" class="avatar" style="margin-right: 2%">
-                    &ensp;
-                    <div><b>{{posts[i].user_name}}</b></div>
+    <div class="outer-content-section">
+        {% for i in range(0, len) %}
+        <div class="container mt-5" >
+            <div class="blog-post" id="{{posts[i].post_id}}">
+                <!-- Circular Box for Avatar, Manager Name, Employee Name, and Points -->
+                <div class="avatar-box">
+                    <div class="avatar-info">
+                        <img src="/static/img/profile.png" alt="M" class="avatar" style="margin-right: 2%">
+                        &ensp;
+                        <div><b>{{posts[i].user_name}}</b></div>
+                    </div>
+                    <div><b>Date:</b> {{posts[i].timestamp}}</div>
                 </div>
-                <div><b>Date:</b> {{posts[i].timestamp}}</div>
-            </div>
-            <!-- Employee Name and Points -->
-            <div class="employee-points">
-                <div><i>Appreciated By</i> <b>{{posts[i].manager_name}}</b></div>
-                <div><b>Points:</b> {{posts[i].points}}</div>
-            </div>
-
-            <!-- Content Box with Values and V1, V2 Sub-boxes -->
-            <div class="content-box">
-                <!-- Variable Content Goes Here -->
-                <p>{{posts[i].content}}</p>
-                <!-- End Variable Content -->
-            </div>
-            <div class="v-box">
-                <button type="button" class="btn btn-light v-sub-box">{{ posts[i].category }}</button>
+                <!-- Employee Name and Points -->
+                <div class="employee-points">
+                    <div><i>Appreciated By</i> <b>{{posts[i].manager_name}}</b></div>
+                    <div><b>Points:</b> {{posts[i].points}}</div>
+                </div>
+    
+                <!-- Content Box with Values and V1, V2 Sub-boxes -->
+                <div class="content-box">
+                    <!-- Variable Content Goes Here -->
+                    <p>{{posts[i].content}}</p>
+                    <!-- End Variable Content -->
+                </div>
+                <div class="v-box">
+                    {%if posts[i].liked==True%}
+                    <button class="btn btn-light v-sub-box liked" onclick="unliked('{{posts[i].post_id}}')">
+                    {%else%}
+                    <button class="btn btn-light v-sub-box unliked" onclick="liked('{{posts[i].post_id}}')">
+                    {%endif%}
+                        <i class="fa fa-heart"></i>
+                    </button>
+                    <button type="button" class="btn btn-light v-sub-box">{{ posts[i].category }}</button>
+                </div>
             </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %} 
-</dir>
 {% endblock content %}
-
