@@ -91,6 +91,9 @@ def login():
 def new_blog():
     if 'user_id' not in session:
         return redirect(url_for('login'))
+        
+    if not session.get('is_manager', False):
+        return redirect(url_for('feed'))
 
     if request.method == 'POST':
 
