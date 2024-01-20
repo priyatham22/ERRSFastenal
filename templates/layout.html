@@ -55,7 +55,11 @@
               <li class="nav-item">
                 <a class="nav-link" href="/new_blog">Create</a>
               </li>
-            {% endif %}
+            {%else%}
+            <li class="nav-item">
+              <a class="nav-link" href="/go_request">Raise a request</a>
+            </li>
+          {% endif %}
             {% if session %}
               <li class="nav-item">
                 <a class="nav-link" href="/leaderboard">Leaderboard</a>

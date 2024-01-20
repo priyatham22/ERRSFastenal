@@ -2,8 +2,9 @@ from flask import Flask, render_template, request, redirect, session, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
+
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:mayank14@localhost/sys'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:rootpassword123@localhost/inital'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'secret_key'
 db = SQLAlchemy(app)
@@ -100,6 +101,36 @@ def leaderboard():
 def logout():
     session.clear()
     return redirect(url_for('home'))
-    
+
+#route to request
+class requests(db.Model):
+    __tablename__= 'requests'
+    id=db.Column(db.Integer,primary_key=True)
+    content=db.Column(db.String(100),nullable=False)
+    options=db.Column(db.String(20),nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+
+
+@app.route('/request_route',methods=['POST','GET'])
+def request_route():
+
+    if request.method=='POST':
+        content=request.form['Content']
+        options=request.form['value']
+        new_task=requests(id=session["user_id"],content=content,options=options)
+        try:
+            db.session.add(new_task)
+            db.session.commit()
+            return redirect(url_for('feed'))
+        except Exception as e:
+            print(f"Error: {e}")
+            return redirect(url_for('feed'))    
+
+    return redirect(url_for('feed'))
+
+@app.route('/go_request')
+def go_request():
+    return render_template('request.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
