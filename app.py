@@ -102,6 +102,7 @@ def new_blog():
         employee = db.session.get(User, employee_id)
         if employee:
             employee.points += points
+            employee.total_points += points
             db.session.commit()
 
         new_post = Post(user_id=employee_id, content=post_content, category=category, points=points)
