@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import aliased
 from sqlalchemy import func,update,select
 from datetime import datetime
+from flask_bcrypt import Bcrypt 
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:mayank14@localhost/sys'
@@ -91,8 +92,13 @@ def login():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-
-        user = User.query.filter_by(username=username, password=password).first()
+        
+        # encrption for password -- ps: put hashed password in DB
+        bcrypt = Bcrypt(app) 
+        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+        is_valid = bcrypt.check_password_hash(hashed_password)
+        
+        user = User.query.filter_by(username=username, password= hashed_password).first()
 
         if user:
             session['username'] = username
