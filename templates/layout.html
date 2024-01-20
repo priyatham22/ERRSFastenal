@@ -56,17 +56,15 @@
                 <a class="nav-link" href="/new_blog">Create</a>
               </li>
             {% endif %}
-            {% if session and session.get('is_manager', true) %}
-              <li class="nav-item">
-                <a class="nav-link" href="/post_idea">post</a>
-              </li>
-            {% endif %}
             {% if session %}
               <li class="nav-item">
                 <a class="nav-link" href="/leaderboard">Leaderboard</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/redeem_points">Redeem</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/Profile">Profile</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/logout">Logout</a>

@@ -228,3 +228,95 @@ footer {
     border-radius: 5px;
     padding: 8px;
 }
+
+
+
+
+/* after this all css is added by me */
+
+.redeem-styles .form-group {
+    margin-bottom: 20px;
+}
+
+.redeem-styles label {
+    text-align: center;
+    font-weight: bold;
+}
+
+.redeem-styles h2 {
+    text-align: center;
+    color: #000;
+    font-weight: 900;
+    margin-bottom: 30px;
+}
+
+.redeem-styles .btn-danger {
+    background-color: #000;
+    border: none;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.redeem-styles .btn-danger:hover {
+    background-color: #000;
+}
+
+.redeem-styles .content-section {
+    margin: 0 13rem;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    margin-top: 100px;
+}
+
+.redeem-styles select{
+    margin-bottom:20px;
+    border: 2px solid #000; 
+    border-radius: 5px;
+    padding: 8px;
+}
+
+
+.success-container {
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 30%;
+}
+.success-container h1 {
+    color: goldenrod;
+    font-size: 36px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+.voucher-card {
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+    text-align:left;
+}
+.voucher-card h2 {
+    color: goldenrod;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+ .voucher-card p {
+    color: #0e0e0e;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+.voucher-card p:last-child {
+    margin-bottom: 0;
+}
+
+.profile-btn
+{
+    color: #f2f2f2;
+    text-decoration: none;
+}
