@@ -154,7 +154,7 @@ def likefunction():
 
         update_user_points = (
             update(User)
-            .values(curr_points=User.total_points +x, points=User.points + x)
+            .values(curr_points=User.curr_points +x, points=User.points + x)
             .where(User.user_id.in_(subquery))
         )
 
