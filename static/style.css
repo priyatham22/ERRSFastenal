@@ -134,7 +134,7 @@ footer {
     max-width: 600px;
     margin: 20px auto;
     padding: 20px;
-    border: 2px solid #ccc;
+    border: 2px solid #3b5998;
     border-radius: 8px;
 }
 
@@ -160,7 +160,6 @@ footer {
     justify-content: space-between;
     flex-direction: column;
     align-items: center;
-    margin-left: 10px;
     flex-direction: row;
 }
 
@@ -174,7 +173,7 @@ footer {
 }
 
 .content-box {
-    border: 2px solid #ccc;
+    border: 2px solid #3b5998;
     padding: 15px;
     margin-bottom: 20px;
     position: relative;
@@ -197,8 +196,8 @@ footer {
     width:50%;
     margin-right: 10px;
     padding: 10px;
-    border: 2px solid #ccc;
-    }
+    border: 2px solid #3b5998;
+}
 
 .custom-styles .form-group {
     margin-bottom: 20px;
@@ -209,7 +208,7 @@ footer {
 }
 
 .custom-styles h2 {
-    color: #428bca;
+    color:  #3b5998;
     margin-bottom: 30px;
 }
 
@@ -227,7 +226,7 @@ footer {
     margin: 0 15rem;
     background: #ffffff;
     padding: 30px;
-    border: 3px solid #428bca;
+    border: 2px solid #3b5998;
     border-radius: 10px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
     margin-top: 150px;
@@ -235,7 +234,6 @@ footer {
 
 .custom-styles select,
 .custom-styles textarea {
-    border: 2px solid #428bca; 
-    border-radius: 5px;
+    border: 2px solid #3b5998;
     padding: 8px;
 }

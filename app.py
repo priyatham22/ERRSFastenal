@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, redirect, session, url_for
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import aliased
+from sqlalchemy.sql import func
 from datetime import datetime
 
 app = Flask(__name__)
@@ -29,6 +31,12 @@ class Post(db.Model):
     timestamp = db.Column(db.DateTime, default=db.func.current_timestamp(), nullable=False)
     user = db.relationship('User', backref='posts')
 
+class likes(db.Model):
+    __tablename__ = 'likes'  
+    user_id = db.Column(db.Integer, db.ForeignKey('Posts.post_id'),primary_key=True)
+    post_id = db.Column(db.Integer, db.ForeignKey('Users.user_id'),primary_key=True)
+
+
 
 @app.route("/")
 @app.route("/home")
@@ -37,8 +45,28 @@ def home():
 
 @app.route("/feed")
 def feed():
-    data=[{'user_name': 'abhishek', 'manager_name': 'Ram', 'category': 'teamwork', 'post_points': 100, 'content': 'good work keep it up',"time":"02-13-2002"}, {'user_name': 'rahul', 'manager_name': 'Ram', 'category': 'Intigrity', 'post_points': 199, 'content': 'kepp up and do good job',"time":"02-13-2002"}]
-    return render_template('feed.html', posts=data, session = session)
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+    u = aliased(User, name='u')
+    m = aliased(User, name='m')
+
+    query = (
+        db.session.query(
+            u.name.label('user_name'),
+            m.name.label('manager_name'),
+            Post.category,
+            Post.points,
+            Post.content,
+            func.date(Post.timestamp).label('timestamp')
+        )
+        .select_from(Post)
+        .join(u, Post.user_id == u.user_id)
+        .outerjoin(m, u.manager_id == m.user_id)
+        .order_by(Post.timestamp.desc())
+    )
+
+    result = query.all()
+    return render_template('feed.html', posts=result, session = session,len=len(result))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
