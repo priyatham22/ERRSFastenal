@@ -128,12 +128,20 @@ footer {
     opacity: 1;
 }
 
-
+.blog-container {
+    max-width: 600px; 
+    margin: 0 auto;
+    padding: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    border-radius: 2%;
+}
 
 .blog-post {
     max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
+    
+    margin: 10px auto;
+    padding: 15px;
     border: 2px solid #3b5998;
     border-radius: 8px;
 }
@@ -347,4 +355,4 @@ footer {
 {
     color: #f2f2f2;
     text-decoration: none;
-}
+} 
