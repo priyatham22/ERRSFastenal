@@ -143,7 +143,7 @@ def manager():
         db.session.query(Request)
         .join(User, Request.user_id == User.user_id)
         .filter(User.manager_id == manager_user_id)
-        .order_by(Request.timestamp)
+        .order_by(Request.timestamp.desc())
         .all()
     )
 
@@ -151,12 +151,12 @@ def manager():
 
 @app.route('/delete/<int:id>')
 def delete(id):
-    task_to_delete=requests.query.get_or_404(id)
+    task_to_delete=Request.query.get_or_404(id)
 
     try:
         db.session.delete(task_to_delete)
         db.session.commit()
-        return render_template('manager.html')
+        return redirect(url_for('manager'))    
 
     except:
         return 'There was a problem deleting the task'
