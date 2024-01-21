@@ -134,6 +134,17 @@ def manager():
     values=requests.query.order_by(requests.timestamp).all()
     return render_template('manager.html',id=id,values=values,session=session)
 
+@app.route('/delete/<int:id>')
+def delete(id):
+    task_to_delete=requests.query.get_or_404(id)
+
+    try:
+        db.session.delete(task_to_delete)
+        db.session.commit()
+        return render_template('manager.html')
+
+    except:
+        return 'There was a problem deleting the task'
 
 if __name__ == '__main__':
     app.run(debug=True)
