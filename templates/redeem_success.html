@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="success-container">
+        <h1>Congratulations!</h1>
+        {% if voucher_name and voucher_worth %}
+            <div class="voucher-card">
+                <h2>A Gift Voucher for you</h2>
+                <p>Voucher Name: {{ voucher_name }}</p>
+                <p>Coupon code: {{s}}</p>
+                <p>Discount received: {{ voucher_worth }} Rupees</p>
+                <!-- You can customize the appearance of the voucher card using CSS -->
+            </div>
+            
+        {% endif %}
+        
+        <h3>Your updated points balance: {{ points }}</h3>
+    </div>
+{% endblock %}
+
+
