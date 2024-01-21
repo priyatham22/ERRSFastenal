@@ -2,8 +2,8 @@
 {% block content %}
     <div class="outer-content-section">
         {% for i in range(0, len) %}
-        <div class="blog-container mt-4" >
-            <div class="blog-post" id="{{posts[i].post_id}}">
+        <div class="container mt-5" >
+            <div class="card blog-post" id="{{posts[i].post_id}}">
                 <!-- Circular Box for Avatar, Manager Name, Employee Name, and Points -->
                 <div class="avatar-box">
                     <div class="avatar-info">
@@ -29,11 +29,11 @@
                     {%if posts[i].liked==True%}
                     <button class="btn btn-light v-sub-box liked" onclick="unliked('{{posts[i].post_id}}')">
                     {%else%}
-                    <button class="btn btn-light v-sub-box unliked" onclick="liked('{{posts[i].post_id}}')">
+                    <button class="btn btn-light v-sub-box unliked" onclick="liked('{{posts[i].post_id}}')" style="border: var(--bs-card-border-width) solid var(--bs-card-border-color);">
                     {%endif%}
                         <i class="fa fa-heart"></i>
                     </button>
-                    <button type="button" class="btn btn-light v-sub-box">{{ posts[i].category }}</button>
+                    <button type="button" class="btn btn-light v-sub-box" style="margin-right: 0;">{{ posts[i].category }}</button>
                 </div>
             </div>
         </div>

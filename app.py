@@ -1,14 +1,16 @@
-from flask import Flask, render_template, request, redirect, session, url_for, flash,jsonify
+from flask import Flask, render_template, request, redirect, session, url_for, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import aliased
 from sqlalchemy import func,update,select
 from datetime import datetime
+from flask_bcrypt import Bcrypt 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:password@localhost/errp_project'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:mayank14@localhost/sys'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'secret_key'
 db = SQLAlchemy(app)
+bcrypt = Bcrypt(app)
 
 
 class User(db.Model):
@@ -92,9 +94,10 @@ def login():
         username = request.form.get('username')
         password = request.form.get('password')
 
-        user = User.query.filter_by(username=username, password=password).first()
+        
+        user = User.query.filter_by(username=username).first()
 
-        if user:
+        if user and bcrypt.check_password_hash(user.password, password):
             session['username'] = username
             session['user_id'] = user.user_id
             session['is_manager'] = user.is_manager
@@ -155,6 +158,51 @@ def logout():
     return redirect(url_for('home'))
 
 
+@app.route("/likefunction",methods=['POST'])
+def likefunction():
+    post_id=request.json.get("post_id")
+    liked=request.json.get("liked")
+
+    def update_points(x,post_id):
+        subquery = (
+                select(Post.user_id)
+                .where(Post.post_id == post_id) 
+                .alias('subquery')
+            )
+
+        update_user_points = (
+            update(User)
+            .values(curr_points=User.curr_points +x, points=User.points + x)
+            .where(User.user_id.in_(subquery))
+        )
+
+        update_post_points = (
+            update(Post)
+            .values(points=Post.points +x)
+            .where(Post.post_id == post_id)
+        )
+
+        db.session.execute(update_post_points)
+        db.session.execute(update_user_points)
+        db.session.commit()
+        
+    if liked:
+        new_likepost = Likes(user_id=session["user_id"], post_id=post_id)
+        db.session.add(new_likepost)
+        db.session.commit()
+            #updating points
+        update_points(5,post_id)
+
+    else:
+        # deleting the 
+        db.session.query(Likes).filter_by(post_id=post_id, user_id=session["user_id"]).delete()
+        db.session.commit()
+            #updating points
+        update_points(-5,post_id)
+        return jsonify({'update': True})
+        
+    return jsonify({'error': "got error"})
+    
 ##from here each part is required and is part of redeem
 import random
 import string
@@ -218,54 +266,8 @@ def Profile():
         return render_template('profile.html', title = 'New Post', id=employee_id, name=employee_name, manager=employee_manager, points=employee_points, curr_points=employee_curr_points)
     else:
         return render_template('profile.html', title = 'New Post', id=employee_id, name=employee_name, points=employee_points, curr_points=employee_curr_points)
-
-
-@app.route("/likefunction",methods=['POST'])
-def likefunction():
-    post_id=request.json.get("post_id")
-    liked=request.json.get("liked")
-
-    def update_points(x,post_id):
-        subquery = (
-                select(Post.user_id)
-                .where(Post.post_id == post_id) 
-                .alias('subquery')
-            )
-
-        update_user_points = (
-            update(User)
-            .values(curr_points=User.curr_points +x, points=User.points + x)
-            .where(User.user_id.in_(subquery))
-        )
-
-        update_post_points = (
-            update(Post)
-            .values(points=Post.points +x)
-            .where(Post.post_id == post_id)
-        )
-
-        db.session.execute(update_post_points)
-        db.session.execute(update_user_points)
-        db.session.commit()
-        
-    if liked:
-        new_likepost = Likes(user_id=session["user_id"], post_id=post_id)
-        db.session.add(new_likepost)
-        db.session.commit()
-            #updating points
-        update_points(5,post_id)
-
-    else:
-        # deleting the 
-        db.session.query(Likes).filter_by(post_id=post_id, user_id=session["user_id"]).delete()
-        db.session.commit()
-            #updating points
-        update_points(-5,post_id)
-        return jsonify({'update': True})
-        
-    return jsonify({'error': "got error"})
-    
-
+=========
+>>>>>>>>> Temporary merge branch 2
 if __name__ == '__main__':
     app.run(debug=True)
 
