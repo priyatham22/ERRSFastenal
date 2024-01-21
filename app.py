@@ -37,7 +37,7 @@ class Request(db.Model):
     description=db.Column(db.String(100),nullable=False)
     values=db.Column(db.String(20),nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
-    status=db.Column(db.String(15),nullable=False)
+    status=db.Column(db.String(15),nullable=False, default='pending')
 
 @app.route("/")
 @app.route("/home")
