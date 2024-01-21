@@ -208,19 +208,19 @@ def manager():
 
     return render_template("manager.html", requests=requests)
 
-@app.route('/delete/<int:id>')
-def delete(id):
-    task_to_delete=Request.query.get_or_404(id)
+@app.route('/requests/<int:request_id>', methods=['DELETE'])
+def reject_request(request_id):
+    request_to_reject = Request.query.get(request_id)
 
-    try:
-        db.session.delete(task_to_delete)
+    if request_to_reject:
+        request_to_reject.status = 'Rejected'
         db.session.commit()
-        return redirect(url_for('manager'))    
 
-    except:
-        return 'There was a problem deleting the task'
+        print(f"Request {request_id} Rejected")
 
-
+        return jsonify({'status': 'success'})
+    else:
+        return jsonify({'status': 'error', 'message': 'Request not found'}), 404
 @app.route("/likefunction",methods=['POST'])
 def likefunction():
     post_id=request.json.get("post_id")
