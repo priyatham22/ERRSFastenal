@@ -5,8 +5,9 @@ from sqlalchemy import func,update,select
 from datetime import datetime
 from flask_bcrypt import Bcrypt 
 
+
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:mayank14@localhost/sys'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:rootpassword123@localhost/inital'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'secret_key'
 db = SQLAlchemy(app)
@@ -34,12 +35,19 @@ class Post(db.Model):
     timestamp = db.Column(db.DateTime, default=db.func.current_timestamp(), nullable=False)
     user = db.relationship('User', backref='posts')
 
+class Request(db.Model):
+    __tablename__= 'requests'
+    request_id=db.Column(db.Integer,primary_key=True)
+    user_id = db.Column(db.Integer)
+    description=db.Column(db.String(100),nullable=False)
+    values=db.Column(db.String(20),nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    status=db.Column(db.String(15),nullable=False, default='pending')
+
 class Likes(db.Model):
     __tablename__ = 'likes'  
     user_id = db.Column(db.Integer, db.ForeignKey('posts.post_id'),primary_key=True)
     post_id = db.Column(db.Integer, db.ForeignKey('users.user_id'),primary_key=True)
-
-
 
 ##this is in order to store the coupons generated and let the company know which coupon is valid
 class coupons(db.Model):
@@ -158,6 +166,58 @@ def logout():
     return redirect(url_for('home'))
 
 
+@app.route('/requests',methods=['POST','GET'])
+def request_route():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+        
+    if request.method=='POST':
+        description=request.form['Content']
+        values=request.form['value']
+        new_task=Request(user_id=session["user_id"],description=description,values=values)
+        try:
+            db.session.add(new_task)
+            db.session.commit()
+            return redirect(url_for('feed'))
+        except Exception as e:
+            print(f"Error: {e}")
+            return redirect(url_for('feed'))    
+    else:
+        return render_template('request.html')
+
+
+@app.route("/manager", methods=["GET"])
+def manager():
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    if not session.get("is_manager", False):
+        return redirect(url_for("feed"))
+
+    manager_user_id = session["user_id"]
+    requests = (
+        db.session.query(Request)
+        .join(User, Request.user_id == User.user_id)
+        .filter(User.manager_id == manager_user_id)
+        .order_by(Request.timestamp.desc())
+        .all()
+    )
+
+    return render_template("manager.html", requests=requests)
+
+@app.route('/delete/<int:id>')
+def delete(id):
+    task_to_delete=Request.query.get_or_404(id)
+
+    try:
+        db.session.delete(task_to_delete)
+        db.session.commit()
+        return redirect(url_for('manager'))    
+
+    except:
+        return 'There was a problem deleting the task'
+
+
 @app.route("/likefunction",methods=['POST'])
 def likefunction():
     post_id=request.json.get("post_id")
@@ -266,6 +326,7 @@ def Profile():
         return render_template('profile.html', title = 'New Post', id=employee_id, name=employee_name, manager=employee_manager, points=employee_points, curr_points=employee_curr_points)
     else:
         return render_template('profile.html', title = 'New Post', id=employee_id, name=employee_name, points=employee_points, curr_points=employee_curr_points)
+
 if __name__ == '__main__':
     app.run(debug=True)
 
