@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, session, url_for, f
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import aliased
 from sqlalchemy import func,update,select
+from sqlalchemy.orm import joinedload
 from datetime import datetime
 from flask_bcrypt import Bcrypt 
 
@@ -37,12 +38,13 @@ class Post(db.Model):
 
 class Request(db.Model):
     __tablename__= 'requests'
-    request_id=db.Column(db.Integer,primary_key=True)
-    user_id = db.Column(db.Integer)
-    description=db.Column(db.String(100),nullable=False)
-    values=db.Column(db.String(20),nullable=False)
+    request_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id')) 
+    description = db.Column(db.String(100), nullable=False)
+    values = db.Column(db.String(20), nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
-    status=db.Column(db.String(15),nullable=False, default='pending')
+    status = db.Column(db.String(15), nullable=False, default='pending')
+    user = db.relationship('User', backref='requests')
 
 class Likes(db.Model):
     __tablename__ = 'likes'  
@@ -200,6 +202,7 @@ def manager():
         .join(User, Request.user_id == User.user_id)
         .filter(User.manager_id == manager_user_id)
         .order_by(Request.timestamp.desc())
+        .options(joinedload(Request.user))
         .all()
     )
 

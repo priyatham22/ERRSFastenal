@@ -1,44 +1,46 @@
-{%extends 'layout.html'%}
+{% extends 'layout.html' %}
 {% block content %}
 
 <body class="manager-main">
-    <script>
-        function showAlert(){
-            alert("Redirecting to 'Create Page' to create a post on this user");
-        }
-    </script>
+    <div class="manager">
+        {% if requests|length < 1 %}
+        <div style="display: flex;">
+            <h1 style="align-items: center;"><b>There are no new requests</b></h1>
+        </div>
+        {% endif %}
 
-<div class="manager">
-    {%if requests|length <1%}
-    <div style="display: flex;"> <h1 style="align-items: cente;"><B>There are no new requests</B></h1></div>
-    {%endif%}
-    {% for request in requests %}
-    <div class="box">
-        <div class="user-info">
-            <h4 style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;"><b>Requested By:&nbsp;{{request.user_id}}<b></b></h4>
+        {% for request in requests %}
+        <div class="box" data-post-id="{{ request.request_id }}">
+            <div class="user-info">
+                <h4 style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                    <b>Requested By: {{ request.user.name }}</b>
+                </h4>
+            </div>
+
+            <div class="value-info">
+                <h4 style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                    <b>VALUE: {{ request.values }}</b>
+                </h4>
+            </div>
+
+            <div class="content-container">
+                <h4><b>Description of the Achievement:</b></h4>
+                <div class="description">
+                    {{ request.description }}
+                </div>
+
+                <!-- Accept and Decline buttons -->
+                <div class="buttons">
+                    <a href="{{ url_for('new_blog') }}">
+                        <button class="acceptBtn">Accept</button>
+                    </a>
+                    <a href="/delete/{{ request.request_id }}">
+                        <button class="declineBtn">Decline</button>
+                    </a>
+                </div>
+            </div>
         </div>
-        <!-- Space for "value" on the top right -->
-        <div class="value-info">
-            <!-- Fetch and display the value here -->
-            <h4 style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;"><b>VALUE:&nbsp;{{request.values}}<b></b></h4>
-        </div>
-<br>
-    <div class="content-container">
-        <!-- Description fetched from the database -->
-        <h4><b>Description of the Achievement:</b></h4>
-        <div class="description">
-            <!-- Assuming you fetch the description dynamically -->
-            {{request.description}}
-        </div>
-<br>
-        <!-- Accept and Decline buttons -->
-        <div class="buttons">
-            <a href="{{url_for('new_blog')}}"><button id="acceptBtn" onclick="showAlert()">Accept</button></a>
-            <a href="/delete/{{request.request_id}}"><button id="acceptBtn">Decline</button></a>
-        </div>
+        {% endfor %}
     </div>
-</div>
-    {%endfor%}
-</div>
 </body>
 {% endblock %}
