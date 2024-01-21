@@ -1,34 +1,32 @@
-{%extends 'layout.html'%}
-{%block content%}
-      <div class="request">
-    <div class="container">
-    <div class="login-container">
-        <h2 style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;"><b>REQUEST FORM</b></h2>
-    
-        <form action="/request_route" method="POST">
-            <label for="Content">Content:</label>
-            <input type="text" id="Content" name="Content" placeholder="Give a brief of your Achievement" required>
-
-            <label><h6><b> CHOOSE A VALUE ON WHICH YOU HAVE TO BE ASSESSED:<b></b></h6></label>
-
-            <div class="radio-container">
-            <label for="Integrity">Integrity</label>
-            <input type="radio" id="Integrity" name="value" value="Integrity" required>
-    
-            <label for="Innovation">Innovation</label>
-            <input type="radio" id="Innovation" name="value" value="Innovation" required>
-
-            <label for="TeamWork">TeamWork</label>
-            <input type="radio" id="TeamWork" name="value" value="TeamWork" required>
-
-            <label for="Ambition">Ambition</label>
-            <input type="radio" id="Ambition" name="value" value="Ambition" required>
-        </div>
-            <br>
-            <br>
-            <input type="submit" class="login-link" value="Send Request">
-        </form>
-    </div>
+{% extends 'layout.html' %}
+{% block content %}
+<body>
+<div class="request">
+<div class="container">
+<div class="login-container">
+<h2 class="form-title"><b>REQUEST FORM</b></h2>
+<div class="request-form-container">
+<form action="/request_route" method="POST" class="request-form">
+<label for="Content" class="form-label">Content:</label>
+<input type="text" id="Content" name="Content" placeholder="Give a brief of your Achievement" class="form-input" required>
+<label class="value-label"><h6><b> CHOOSE A VALUE ON WHICH YOU HAVE TO BE ASSESSED:</b></h6></label>
+<div class="radio-container">
+<label for="Integrity" class="radio-label">Integrity</label>
+<input type="radio" id="Integrity" name="value" value="Integrity" class="radio-input" required>
+<label for="Innovation" class="radio-label">Innovation</label>
+<input type="radio" id="Innovation" name="value" value="Innovation" class="radio-input" required>
+<label for="TeamWork" class="radio-label">TeamWork</label>
+<input type="radio" id="TeamWork" name="value" value="TeamWork" class="radio-input" required>
+<label for="Ambition" class="radio-label">Ambition</label>
+<input type="radio" id="Ambition" name="value" value="Ambition" class="radio-input" required>
 </div>
-      </div>
-{%endblock content%}
+<br>
+<br>
+<input type="submit" class="submit-btn" value="Send Request">
+</form>
+</div>
+</div>
+</div>
+</div>
+</body>
+{% endblock content %}
