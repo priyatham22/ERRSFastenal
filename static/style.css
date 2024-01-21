@@ -312,7 +312,7 @@ footer {
     justify-content: center;
     align-items: center;
     gap: 70px;
-
+    padding-bottom: 15rem;
 }
 
 .manager {
