@@ -30,6 +30,14 @@ class Post(db.Model):
     timestamp = db.Column(db.DateTime, default=db.func.current_timestamp(), nullable=False)
     user = db.relationship('User', backref='posts')
 
+class Request(db.Model):
+    __tablename__= 'requests'
+    request_id=db.Column(db.Integer,primary_key=True)
+    user_id = db.Column(db.Integer)
+    description=db.Column(db.String(100),nullable=False)
+    values=db.Column(db.String(20),nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    status=db.Column(db.String(15),nullable=False)
 
 @app.route("/")
 @app.route("/home")
@@ -102,22 +110,15 @@ def logout():
     session.clear()
     return redirect(url_for('home'))
 
-#route to request
-class requests(db.Model):
-    __tablename__= 'requests'
-    id=db.Column(db.Integer,primary_key=True)
-    content=db.Column(db.String(100),nullable=False)
-    options=db.Column(db.String(20),nullable=False)
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
-    status=db.Column(db.String(15),nullable=False)
-
-
-@app.route('/request_route',methods=['POST','GET'])
+@app.route('/requests',methods=['POST','GET'])
 def request_route():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+        
     if request.method=='POST':
-        content=request.form['Content']
-        options=request.form['value']
-        new_task=requests(id=session["user_id"],content=content,options=options)
+        description=request.form['Content']
+        values=request.form['value']
+        new_task=Request(user_id=session["user_id"],description=description,values=values)
         try:
             db.session.add(new_task)
             db.session.commit()
@@ -129,10 +130,24 @@ def request_route():
         return render_template('request.html')
 
 
-@app.route('/manager',methods=['GET'])
+@app.route("/manager", methods=["GET"])
 def manager():
-    values=requests.query.order_by(requests.timestamp).all()
-    return render_template('manager.html',id=id,values=values,session=session)
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    if not session.get("is_manager", False):
+        return redirect(url_for("feed"))
+
+    manager_user_id = session["user_id"]
+    requests = (
+        db.session.query(Request)
+        .join(User, Request.user_id == User.user_id)
+        .filter(User.manager_id == manager_user_id)
+        .order_by(Request.timestamp)
+        .all()
+    )
+
+    return render_template("manager.html", requests=requests)
 
 @app.route('/delete/<int:id>')
 def delete(id):
