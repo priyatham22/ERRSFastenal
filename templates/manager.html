@@ -1,8 +1,17 @@
 {%extends 'layout.html'%}
 {% block content %}
 
-<body>
+<body class="manager-main">
+    <script>
+        function showAlert(){
+            alert("Redirecting to 'Create Page' to create a post on this user");
+        }
+    </script>
+
 <div class="manager">
+    {%if values|length <1%}
+    <div style="display: flex;"> <h1 style="align-items: cente;"><B>There are no new requests</B></h1></div>
+    {%endif%}
     {% for value in values %}
     <div class="box">
         <div class="user-info">
@@ -24,8 +33,8 @@
 <br>
         <!-- Accept and Decline buttons -->
         <div class="buttons">
-            <button id="acceptBtn">Accept</button>
-            <button id="declineBtn">Decline</button>
+            <a href="{{url_for('new_blog')}}"><button id="acceptBtn" onclick="showAlert()">Accept</button></a>
+            <a href="/delete/{{value.id}}"><button id="acceptBtn">Decline</button></a>
         </div>
     </div>
 </div>

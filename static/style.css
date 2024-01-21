@@ -281,6 +281,14 @@ footer {
     background-color: #0a68bb;
  }
 
+ .manager-main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 70px;
+
+}
 
 .manager {
     max-width: 800px;
@@ -289,10 +297,11 @@ footer {
 }
  
 .box {
-    border: 2px solid #3b5998;
+    border: 2px solid black;
     border-radius: 8px;
     margin-bottom: 20px;
     padding: 20px;
+    background-color: lightblue;
 }
  
 .value-info {
@@ -309,7 +318,7 @@ footer {
 .description {
     width: 600px;
     border: 2px solid lightblue;
-    border-radius: 5%;
+    border-radius: 2%;
     height: 80px;
     justify-content: center;
 
@@ -321,7 +330,7 @@ footer {
     justify-content: space-between;
 }
  
-button {
+.manager button {
     padding: 10px;
     background-color: #428bca;
     color: white;
@@ -329,6 +338,6 @@ button {
     cursor: pointer;
 }
  
-button:hover {
+.manager button:hover {
     background-color: #3071a9;
 }
