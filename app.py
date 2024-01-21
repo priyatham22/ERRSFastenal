@@ -213,7 +213,7 @@ def reject_request(request_id):
     request_to_reject = Request.query.get(request_id)
 
     if request_to_reject:
-        request_to_reject.status = 'Rejected'
+        request_to_reject.status = 'rejected'
         db.session.commit()
 
         print(f"Request {request_id} Rejected")
