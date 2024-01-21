@@ -109,11 +109,11 @@ class requests(db.Model):
     content=db.Column(db.String(100),nullable=False)
     options=db.Column(db.String(20),nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    status=db.Column(db.String(15),nullable=False)
 
 
 @app.route('/request_route',methods=['POST','GET'])
 def request_route():
-
     if request.method=='POST':
         content=request.form['Content']
         options=request.form['value']
@@ -125,12 +125,15 @@ def request_route():
         except Exception as e:
             print(f"Error: {e}")
             return redirect(url_for('feed'))    
+    else:
+        return render_template('request.html')
 
-    return redirect(url_for('feed'))
 
-@app.route('/go_request')
-def go_request():
-    return render_template('request.html')
+@app.route('/manager',methods=['GET'])
+def manager():
+    values=requests.query.order_by(requests.timestamp).all()
+    return render_template('manager.html',id=id,values=values,session=session)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

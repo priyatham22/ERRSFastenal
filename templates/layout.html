@@ -21,10 +21,13 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"
     />
-    <link
+    <!-- <link
       rel="stylesheet"
       href="../static/style2.css"
-    />
+    /> -->
+
+    <!-- <link rel="stylesheet" href="ERRSFastenal\static\manager.css" /> -->
+
     {% if title %}
     <title>ERRS Fastenal - {{ title }}</title>
     {% else %}
@@ -59,9 +62,14 @@
               <li class="nav-item">
                 <a class="nav-link" href="/new_blog">Create</a>
               </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="/manager">Requests</a>
+              </li>
+
             {%elif session and session.get('is_manager')== false %}
             <li class="nav-item">
-              <a class="nav-link" href="/go_request">Raise a request</a>
+              <a class="nav-link" href="/request_route">Raise a request</a>
             </li>
           {% endif %}
             {% if session %}
