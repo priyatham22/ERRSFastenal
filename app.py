@@ -3,12 +3,12 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import aliased
 from sqlalchemy import func,update,select
 from sqlalchemy.orm import joinedload
-from datetime import datetime
+from datetime import datetime, timedelta
 from flask_bcrypt import Bcrypt 
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:mayank14@localhost/sys'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:Khwahish21@localhost/temp_erp'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'secret_key'
 db = SQLAlchemy(app)
@@ -52,12 +52,13 @@ class Likes(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey('users.user_id'),primary_key=True)
 
 ##this is in order to store the coupons generated and let the company know which coupon is valid
-class coupons(db.Model):
+class Coupon(db.Model):
     __tablename__ = 'coupons'
     coupon_id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, nullable=False)
     coupon_name = db.Column(db.String(20), nullable=False)
     coupon_code = db.Column(db.String(10), nullable=False)
+    expiry_date=db.Column(db.Date, default=datetime.utcnow() + timedelta(days=30), nullable=False)
 
 @app.route("/")
 @app.route("/home")
@@ -303,13 +304,14 @@ def redeem_points():
                     success_messages.append(f'Redeemed {redeem_option.capitalize()} voucher successfully!, {required_points} points deducted.')
                     voucher_name = f"{redeem_option.capitalize()} Voucher"
                     voucher_worth = required_points//10
-                    
+                    if required_points==0:
+                        return render_template('redeem.html',points=points)                    
                 else:
                     error_messages.append(f'Insufficient points to redeem {redeem_option.capitalize()}.')
 
             if success_messages:
                         s="F"+get_random_string(4)+str(voucher_worth)
-                        new_coupon = coupons(user_id=user_id, coupon_name=voucher_name, coupon_code=s)
+                        new_coupon = Coupon(user_id=user_id, coupon_name=voucher_name, coupon_code=s)
                         db.session.add(new_coupon)
                         db.session.commit()
                         return render_template('redeem_success.html', points=employee_points.curr_points, s=s, voucher_name=voucher_name, voucher_worth=voucher_worth)
@@ -317,6 +319,14 @@ def redeem_points():
                         return render_template('redeem_success.html', error_messages=error_messages, points=employee_points.curr_points)
         return render_template('redeem.html', points=points)
 
+@app.route("/coupons")
+def coupons():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+    employee_id=session['user_id']
+    print(employee_id)
+    details = Coupon.query.with_entities(Coupon.coupon_name, Coupon.coupon_code, Coupon.expiry_date).filter_by(user_id=employee_id).all()
+    return render_template('coupons.html', title = 'coupons', len = len(details), details=details)
 
 @app.route("/Profile", methods=['GET'])
 def Profile():
