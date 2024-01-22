@@ -152,8 +152,13 @@ def new_blog():
         manager_id = session['user_id'] 
         employees = User.query.filter_by(manager_id=manager_id).all()
 
+        ## TODO: need to write logic to set status of request to accepted and also enforce user_id and values
+        user_id = request.args.get('user_id')
+        description = request.args.get('description')
+        values = request.args.get('values')
+
         employee_choices = [(employee.user_id, f"{employee.name} ({employee.user_id})") for employee in employees]
-        return render_template('new_blog.html', title = 'New Post', employee_choices=employee_choices)
+        return render_template('new_blog.html', title = 'New Post', employee_choices=employee_choices, user_id=user_id, description=description, values=values)
 
 @app.route("/leaderboard")
 def leaderboard():
