@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, session, url_for, f
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import aliased
 from sqlalchemy import func,update,select
+from sqlalchemy.orm import joinedload
 from datetime import datetime
 from flask_bcrypt import Bcrypt 
 
@@ -37,12 +38,13 @@ class Post(db.Model):
 
 class Request(db.Model):
     __tablename__= 'requests'
-    request_id=db.Column(db.Integer,primary_key=True)
-    user_id = db.Column(db.Integer)
-    description=db.Column(db.String(100),nullable=False)
-    values=db.Column(db.String(20),nullable=False)
+    request_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id')) 
+    description = db.Column(db.String(100), nullable=False)
+    values = db.Column(db.String(20), nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
-    status=db.Column(db.String(15),nullable=False, default='pending')
+    status = db.Column(db.String(15), nullable=False, default='pending')
+    user = db.relationship('User', backref='requests')
 
 class Likes(db.Model):
     __tablename__ = 'likes'  
@@ -150,8 +152,13 @@ def new_blog():
         manager_id = session['user_id'] 
         employees = User.query.filter_by(manager_id=manager_id).all()
 
+        ## TODO: need to write logic to set status of request to accepted and also enforce user_id and values
+        user_id = request.args.get('user_id')
+        description = request.args.get('description')
+        values = request.args.get('values')
+
         employee_choices = [(employee.user_id, f"{employee.name} ({employee.user_id})") for employee in employees]
-        return render_template('new_blog.html', title = 'New Post', employee_choices=employee_choices)
+        return render_template('new_blog.html', title = 'New Post', employee_choices=employee_choices, user_id=user_id, description=description, values=values)
 
 @app.route("/leaderboard")
 def leaderboard():
@@ -199,25 +206,27 @@ def manager():
         db.session.query(Request)
         .join(User, Request.user_id == User.user_id)
         .filter(User.manager_id == manager_user_id)
+        .filter(Request.status == 'pending') 
         .order_by(Request.timestamp.desc())
+        .options(joinedload(Request.user))
         .all()
     )
 
     return render_template("manager.html", requests=requests)
 
-@app.route('/delete/<int:id>')
-def delete(id):
-    task_to_delete=Request.query.get_or_404(id)
+@app.route('/requests/<int:request_id>', methods=['DELETE'])
+def reject_request(request_id):
+    request_to_reject = Request.query.get(request_id)
 
-    try:
-        db.session.delete(task_to_delete)
+    if request_to_reject:
+        request_to_reject.status = 'rejected'
         db.session.commit()
-        return redirect(url_for('manager'))    
 
-    except:
-        return 'There was a problem deleting the task'
+        print(f"Request {request_id} Rejected")
 
-
+        return jsonify({'status': 'success'})
+    else:
+        return jsonify({'status': 'error', 'message': 'Request not found'}), 404
 @app.route("/likefunction",methods=['POST'])
 def likefunction():
     if 'user_id' not in session:
