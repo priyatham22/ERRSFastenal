@@ -220,6 +220,8 @@ def delete(id):
 
 @app.route("/likefunction",methods=['POST'])
 def likefunction():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
     post_id=request.json.get("post_id")
     liked=request.json.get("liked")
 
