@@ -15,6 +15,7 @@ body {
 
 .login {
     padding: 2rem 25rem;
+    margin-bottom: 3rem;
 }
 .submit {
     margin-top: 1rem;
@@ -95,9 +96,7 @@ body {
 }
 
 footer {
-    /* position: fixed; */
-    left: 0;
-    bottom: 0;
+    position: absolute;
     width: 100%;
     margin-top: 5rem;
     background-color: #212529;
