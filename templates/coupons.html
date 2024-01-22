@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+  <section class="bg-coupons">
+    <h1 style="color: black; text-align: center;">My Coupons</h1>
+    <div class = 'coupons'>
+      <table class="table table-hover" style="margin-bottom: 0;">
+        <thead>
+          <tr>
+            <th scope="col">Sr. No.</th>
+            <th scope="col">Coupon Name</th>
+            <th scope="col">Coupon Code</th>
+            <th scope="col">Expiry Date</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          {% for i in range(0, len) %}
+            <tr>
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ details[i].coupon_name }}</td>
+                <td>{{ details[i].coupon_code}}</td>
+                <td>{{ details[i].expiry_date}}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+{% endblock content %}
