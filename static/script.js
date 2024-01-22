@@ -1,10 +1,21 @@
-function unliked(post_id){
-    fetch('/likefunction', ajaxcall(false,post_id))
+function changeOnclickFunction(newOnclickFunction,parameter,obj) {
+    obj.onclick = function() {
+        newOnclickFunction(parameter);
+    };
+}
+
+function unliked(posts_id){
+    fetch('/likefunction', ajaxcall(false,posts_id))
     .then(response => response.json())
     .then(data => {
+
+        let value=document.getElementById(posts_id+"points");
         console.log("disliked")
-        console.log(data);
-        location.reload();
+        value.innerHTML=parseInt(value.innerHTML)-5;
+        let button=document.getElementById(posts_id+"button");
+        button.classList.remove("liked");
+        button.classList.add("unliked");
+        changeOnclickFunction(liked,posts_id,button);
     })
     .catch(error => console.error('Error:', error));
 }
@@ -13,9 +24,13 @@ function liked(posts_id){
     fetch('/likefunction', ajaxcall(true,posts_id))
     .then(response => response.json())
     .then(data => {
+        let value=document.getElementById(posts_id+"points");
         console.log("liked")
-        console.log(data);
-        location.reload();
+        value.innerHTML=parseInt(value.innerHTML)+5;
+        let button=document.getElementById(posts_id+"button");
+        button.classList.remove("unliked");
+        button.classList.add("liked");
+        changeOnclickFunction(unliked,posts_id,button);
     })
     .catch(error => console.error('Error:', error));
 }
