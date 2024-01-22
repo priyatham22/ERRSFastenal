@@ -379,9 +379,9 @@ footer {
 
 .redeem-styles h2 {
     text-align: center;
-    color: #000;
-    font-weight: 900;
+    color: #000000;
     margin-bottom: 30px;
+    font-weight:bolder;
 }
 
 .redeem-styles .btn-danger {
@@ -405,11 +405,12 @@ footer {
 
 .redeem-styles select{
     margin-bottom:20px;
-    border: 2px solid #000; 
+    border: 2px solid #535565; 
     border-radius: 5px;
     padding: 8px;
+    color: rgb(91, 89, 89);
+    font-weight:bold;
 }
-
 
 .success-container {
     margin: 0 auto;
@@ -462,4 +463,18 @@ footer {
     opacity: 0;
     transform: translateY(-20px);
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+.coupons {
+    margin: 5rem 10rem;
+    border: 2px solid black;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.bg-coupons {
+    height: 100%;
+    padding-top: 9.3rem;
+    padding-bottom: 10rem;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
