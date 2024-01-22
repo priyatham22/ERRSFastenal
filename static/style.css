@@ -472,9 +472,5 @@ footer {
 
 .bg-coupons {
     height: 100%;
-    padding-top: 9.3rem;
-    padding-bottom: 10rem;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    padding-top: 5rem;
 }
