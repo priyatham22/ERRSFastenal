@@ -5,10 +5,9 @@
         {% if voucher_name and voucher_worth %}
             <div class="voucher-card">
                 <h2>A Gift Voucher for you</h2>
-                <p>Voucher Name: {{ voucher_name }}</p>
-                <p>Coupon code: {{s}}</p>
-                <p>Discount received: {{ voucher_worth }} Rupees</p>
-                <!-- You can customize the appearance of the voucher card using CSS -->
+                <p> <b>Voucher Name:</b> <i>{{ voucher_name }}</i></p>
+                <p> <b>Coupon code:</b> {{s}}</p>
+                <p> <b>Discount received:</b> {{ voucher_worth }} Rupees</p>
             </div>
             
         {% endif %}
