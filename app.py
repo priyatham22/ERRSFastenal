@@ -8,7 +8,7 @@ from flask_bcrypt import Bcrypt
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:password@localhost/errp_project'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:mayank14@localhost/sys'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'secret_key'
 db = SQLAlchemy(app)
@@ -229,6 +229,8 @@ def reject_request(request_id):
         return jsonify({'status': 'error', 'message': 'Request not found'}), 404
 @app.route("/likefunction",methods=['POST'])
 def likefunction():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
     post_id=request.json.get("post_id")
     liked=request.json.get("liked")
 
