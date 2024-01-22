@@ -14,7 +14,7 @@ body {
 }
 
 .login {
-    padding: 2rem 25rem;
+    padding: 5% 40%;
     margin-bottom: 3rem;
 }
 .submit {
@@ -265,17 +265,18 @@ footer {
 
 
 .request .container {
+
     max-width: 600px; /* Adjust the width as needed */
-    margin: 0 auto; 
+    margin: 1rem auto; 
     padding: 2rem;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Blurry shadow effect */
-    background-color:transparent;
-    background: rgba(93, 147, 230, 0.79);
+    box-shadow:  0 4px 10px rgba(0, 0, 0, 0.3);/* Blurry shadow effect */
     backdrop-filter: blur(3px);
     border-radius: 2%;
     color:black;
 }
-
+.radio-input {
+    margin-right: 5%;
+}
 .form-title {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
  }
@@ -457,4 +458,10 @@ footer {
 }
 .profile {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.fadeOut {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }

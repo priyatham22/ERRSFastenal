@@ -32,3 +32,31 @@ function ajaxcall(liked,posts_id){
         }),
     }
 }
+
+document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('declineBtn')) {
+        var postContainer = event.target.closest('.box');
+        var postId = postContainer.dataset.postId;
+
+        fetch(`/requests/${postId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ status: 'rejected' })
+        })
+        .then(response => response.json())
+        .then(data => {
+            postContainer.classList.add('fadeOut');
+
+            setTimeout(function() {
+                postContainer.remove();
+                console.log('Post removed!');
+            }, 500);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred.');
+        });
+    }
+});
