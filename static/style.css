@@ -209,7 +209,7 @@ footer {
 }
 
 .liked:hover{
-    background-color: white;
+    background-color: red;
 }
 
 .unliked:hover{
