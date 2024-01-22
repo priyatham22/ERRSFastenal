@@ -1,11 +1,11 @@
 {% extends 'layout.html' %}
 {% block content %}
 
-<body class="manager-main">
+<div class="manager-main">
     <div class="manager">
         {% if requests|length < 1 %}
-        <div style="display: flex;">
-            <h1 style="align-items: center;"><b>There are no new requests</b></h1>
+        <div class="d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+            <h1><b>There are no new requests</b></h1>
         </div>
         {% endif %}
 
@@ -40,5 +40,5 @@
         </div>
         {% endfor %}
     </div>
-</body>
+</div>
 {% endblock %}

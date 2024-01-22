@@ -67,6 +67,15 @@ document.addEventListener('click', function(event) {
             setTimeout(function() {
                 postContainer.remove();
                 console.log('Post removed!');
+
+                if (document.querySelectorAll('.box').length === 0) {
+                    var noRequestsDiv = document.createElement('div');
+                    noRequestsDiv.classList.add('no-requests-message');
+                    noRequestsDiv.innerHTML = '<h1><b>There are no new requests</b></h1>';
+                    
+                    document.querySelector('.manager').innerHTML = '';
+                    document.querySelector('.manager').appendChild(noRequestsDiv);
+                }
             }, 500);
         })
         .catch(error => {

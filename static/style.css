@@ -130,7 +130,7 @@ footer {
 
 
 .outer-content-section {
-    padding-top: 0.5rem;
+    padding-top: 2.5rem;
 }
 
 .blog-post {
@@ -312,7 +312,7 @@ footer {
     justify-content: center;
     align-items: center;
     gap: 70px;
-    padding-bottom: 15rem;
+    margin-top: 5rem;
 }
 
 .manager {
@@ -474,4 +474,23 @@ footer {
 .bg-coupons {
     height: 100%;
     padding-top: 5rem;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    margin-top: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+section {
+    flex: 1;
+}
+
+.no-requests-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
 }
