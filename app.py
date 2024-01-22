@@ -206,6 +206,7 @@ def manager():
         db.session.query(Request)
         .join(User, Request.user_id == User.user_id)
         .filter(User.manager_id == manager_user_id)
+        .filter(Request.status == 'pending') 
         .order_by(Request.timestamp.desc())
         .options(joinedload(Request.user))
         .all()
