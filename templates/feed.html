@@ -16,7 +16,7 @@
                 <!-- Employee Name and Points -->
                 <div class="employee-points">
                     <div><i>Appreciated By</i> <b>{{posts[i].manager_name}}</b></div>
-                    <div><b>Points:</b> {{posts[i].points}}</div>
+                    <div><b>Points:</b> <span id="{{posts[i].post_id}}points">{{posts[i].points}}</span></div>
                 </div>
     
                 <!-- Content Box with Values and V1, V2 Sub-boxes -->
@@ -26,11 +26,15 @@
                     <!-- End Variable Content -->
                 </div>
                 <div class="v-box">
+                    
+                    <button 
                     {%if posts[i].liked==True%}
-                    <button class="btn btn-light v-sub-box liked" onclick="unliked('{{posts[i].post_id}}')">
+                    class="btn btn-light v-sub-box liked" onclick="unliked('{{posts[i].post_id}}')"
                     {%else%}
-                    <button class="btn btn-light v-sub-box unliked" onclick="liked('{{posts[i].post_id}}')" style="border: var(--bs-card-border-width) solid var(--bs-card-border-color);">
+                    class="btn btn-light v-sub-box unliked" onclick="liked('{{posts[i].post_id}}')" 
                     {%endif%}
+                    id='{{posts[i].post_id}}button' style="border: var(--bs-card-border-width) solid var(--bs-card-border-color);">
+                    
                         <i class="fa fa-heart"></i>
                     </button>
                     <button type="button" class="btn btn-light v-sub-box" style="margin-right: 0;">{{ posts[i].category }}</button>
