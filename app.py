@@ -323,14 +323,14 @@ def redeem_points():
                     db.session.commit()                   
                     success_messages.append(f'Redeemed {redeem_option.capitalize()} voucher successfully!, {required_points} points deducted.')
                     voucher_name = f"{redeem_option.capitalize()} Voucher"
-                    voucher_worth = required_points//10
+                    voucher_worth = required_points
                     if required_points==0:
                         return render_template('redeem.html',points=points)                    
                 else:
                     error_messages.append(f'Insufficient points to redeem {redeem_option.capitalize()}.')
 
             if success_messages:
-                        s="F"+get_random_string(4)+str(voucher_worth)
+                        s=voucher_name[0]+get_random_string(4)+str(voucher_worth)
                         new_coupon = Coupon(user_id=user_id, coupon_name=voucher_name, coupon_code=s)
                         db.session.add(new_coupon)
                         db.session.commit()
