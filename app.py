@@ -9,7 +9,7 @@ from flask_session import Session
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:password@localhost/errp_project'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:mayank14@localhost/errp_project'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'secret_key'
 app.config["SESSION_PERMANENT"] = False

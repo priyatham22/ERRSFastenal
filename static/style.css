@@ -12,10 +12,15 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }
-
+.login-box {
+    min-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
 .login {
-    padding: 5% 40%;
-    margin-bottom: 3rem;
+    margin: 2rem 1rem;
 }
 .submit {
     margin-top: 1rem;
