@@ -135,15 +135,16 @@ label {
     </div>
 </div>
 <script>
-    function updateDropdownEnabled(option, userPoints) {
+    function updateDropdownEnabled(option, userPoints) 
+    {
         var pointsDropdown = document.getElementById(option + '_points');
         var options = pointsDropdown.options;
-
-        pointsDropdown.disabled = false;  // Enable the dropdown by default
-
-        for (var i = 0; i < options.length; i++) {
+        pointsDropdown.disabled = false;
+        for (var i = 0; i < options.length; i++) 
+        {
             options[i].style.display = (parseInt(options[i].value) <= userPoints) ? 'block' : 'none';
         }
     }
 </script>
+
 {% endblock %}
