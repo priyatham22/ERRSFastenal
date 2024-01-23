@@ -5,12 +5,16 @@ from sqlalchemy import func,update,select
 from sqlalchemy.orm import joinedload
 from datetime import datetime, timedelta
 from flask_bcrypt import Bcrypt 
+from flask_session import Session
 
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:password@localhost/errp_project'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'secret_key'
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 

@@ -50,10 +50,10 @@ function ajaxcall(liked,posts_id){
 
 document.addEventListener('click', function(event) {
     if (event.target.classList.contains('declineBtn')) {
-        var postContainer = event.target.closest('.box');
-        var postId = postContainer.dataset.postId;
+        var requestContainer = event.target.closest('.box');
+        var requestID = requestContainer.dataset.postId;
 
-        fetch(`/requests/${postId}`, {
+        fetch(`/requests/${requestID}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -62,10 +62,10 @@ document.addEventListener('click', function(event) {
         })
         .then(response => response.json())
         .then(data => {
-            postContainer.classList.add('fadeOut');
+            requestContainer.classList.add('fadeOut');
 
             setTimeout(function() {
-                postContainer.remove();
+                requestContainer.remove();
                 console.log('Post removed!');
 
                 if (document.querySelectorAll('.box').length === 0) {
