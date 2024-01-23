@@ -4,12 +4,15 @@
     <div class="content-section">
         <h2 class="article-title">Create a New Post</h2>
 
-        <form action="{{ url_for('new_blog') }}" method="post">
+        <form action="{{ url_for('new_blog') }}" method="post" id="postForm">
+            {% if request_id %}
+                <input type="hidden" name="request_id" value="{{ request_id }}">
+            {% endif %}
             <div class="form-group">
                 <label for="employee_id">Select Employee:</label>
-                <select id="employee_id" name="employee_id" class="form-control" required>
+                <select id="employee_id" name="employee_id" class="form-control" required {% if is_manager_view %} disabled {% endif %}>
                     {% for emp_id, name in employee_choices %}
-                        <option value="{{ emp_id }}" {% if user_id and emp_id == user_id %} selected {% elif not user_id and loop.first %} selected {% endif %}>{{ name }}</option>
+                        <option value="{{ emp_id }}">{{ name }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -23,7 +26,7 @@
                 <label>Category:</label>
                 {% for category in ['Innovation', 'Integrity', 'Ambition', 'Teamwork'] %}
                     <div class="form-check form-check-inline">
-                        <input type="radio" id="{{ category.lower() }}" name="category" value="{{ category }}" class="form-check-input" {% if values and category.lower() == values.lower() %} checked {% endif %} required>
+                        <input type="radio" id="{{ category.lower() }}" name="category" value="{{ category }}" class="form-check-input" {% if values and category.lower() == values.lower() %} checked {% endif %} {% if is_manager_view %} disabled {% endif %} required>
                         <label for="{{ category.lower() }}" class="form-check-label">{{ category }}</label>
                     </div>
                 {% endfor %}
@@ -41,9 +44,31 @@
             </div>
 
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">Create Post</button>
+                <button type="button" onclick="enableFieldsAndSubmit()" class="btn btn-primary">Create Post</button>
             </div>
         </form>
     </div>
 </div>
+
+<script>
+    document.getElementById("employee_id").value = "{{ user_id }}";
+
+    function enableFieldsAndSubmit() {
+        var postContent = document.getElementById("post_content").value.trim();
+        var description = "{{ description }}".trim();
+        if (postContent === description) {
+            alert("Post content must be different from the description. Please modify it.");
+            return;
+        }
+        document.getElementById("employee_id").disabled = false;
+
+        var radioButtons = document.getElementsByName("category");
+        for (var i = 0; i < radioButtons.length; i++) {
+            radioButtons[i].disabled = false;
+        }
+        
+        document.getElementById("postForm").submit();
+    }
+</script>
+
 {% endblock %}

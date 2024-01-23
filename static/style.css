@@ -312,7 +312,7 @@ footer {
     justify-content: center;
     align-items: center;
     gap: 70px;
-    padding-bottom: 15rem;
+    margin-top: 5rem;
 }
 
 .manager {
@@ -474,4 +474,12 @@ footer {
 .bg-coupons {
     height: 100%;
     padding-top: 5rem;
+}
+
+
+.no-requests-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
 }

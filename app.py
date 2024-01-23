@@ -5,12 +5,16 @@ from sqlalchemy import func,update,select
 from sqlalchemy.orm import joinedload
 from datetime import datetime, timedelta
 from flask_bcrypt import Bcrypt 
+from flask_session import Session
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:Khwahish21@localhost/temp_erp'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:password@localhost/errp_project'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'secret_key'
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 
@@ -134,6 +138,10 @@ def new_blog():
         post_content = request.form.get('post_content')
         category = request.form.get('category')
         points = int(request.form.get('points'))
+        print(employee_id)
+        print(post_content)
+        print(category)
+        print(points)
 
         employee = db.session.get(User, employee_id)
         
@@ -141,6 +149,14 @@ def new_blog():
             employee.points += points
             employee.curr_points+=points
             db.session.commit()
+
+        request_id = request.form.get('request_id')
+        print(request_id)
+        if request_id:
+            request_to_accept = db.session.query(Request).filter_by(request_id=request_id).first()
+            if request_to_accept:
+                request_to_accept.status = 'accepted'
+                db.session.commit()
 
         new_post = Post(user_id=employee_id, content=post_content, category=category, points=points)
         db.session.add(new_post)
@@ -153,13 +169,17 @@ def new_blog():
         manager_id = session['user_id'] 
         employees = User.query.filter_by(manager_id=manager_id).all()
 
-        ## TODO: need to write logic to set status of request to accepted and also enforce user_id and values
         user_id = request.args.get('user_id')
         description = request.args.get('description')
         values = request.args.get('values')
+        request_id = request.args.get('request_id')
+        is_manager_view = request.args.get('is_manager_view')
+
 
         employee_choices = [(employee.user_id, f"{employee.name} ({employee.user_id})") for employee in employees]
-        return render_template('new_blog.html', title = 'New Post', employee_choices=employee_choices, user_id=user_id, description=description, values=values)
+        return render_template('new_blog.html', title = 'New Post', employee_choices=employee_choices, user_id=user_id, description=description, values=values,
+                               is_manager_view=is_manager_view,
+                               request_id=request_id)
 
 @app.route("/leaderboard")
 def leaderboard():

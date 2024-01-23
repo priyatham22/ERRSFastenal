@@ -1,11 +1,11 @@
 {% extends 'layout.html' %}
 {% block content %}
 
-<body class="manager-main">
+<div class="manager-main">
     <div class="manager">
         {% if requests|length < 1 %}
-        <div style="display: flex;">
-            <h1 style="align-items: center;"><b>There are no new requests</b></h1>
+        <div class="d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+            <h1><b>There are no new requests</b></h1>
         </div>
         {% endif %}
 
@@ -31,7 +31,7 @@
 
                 <!-- Accept and Decline buttons -->
                 <div class="buttons">
-                    <a href="{{ url_for('new_blog', user_id=request.user_id, description=request.description, values=request.values) }}">
+                    <a href="{{ url_for('new_blog', user_id=request.user_id, description=request.description, values=request.values, request_id=request.request_id, is_manager_view=true) }}">
                         <button class="acceptBtn">Accept</button>
                     </a>
                     <button class="declineBtn">Decline</button>
@@ -40,5 +40,5 @@
         </div>
         {% endfor %}
     </div>
-</body>
+</div>
 {% endblock %}
