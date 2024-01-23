@@ -312,7 +312,7 @@ footer {
     justify-content: center;
     align-items: center;
     gap: 70px;
-    padding-bottom: 15rem;
+    margin-top: 5rem;
 }
 
 .manager {
@@ -392,11 +392,11 @@ footer {
 }
 
 .redeem-styles .btn-danger:hover {
-    background-color: #000;
+    background-color: #c32d2d;
 }
 
 .redeem-styles .content-section {
-    margin: 0 13rem;
+    width: 85%;
     background: #ffffff;
     padding: 30px;
     border-radius: 10px;
@@ -420,7 +420,7 @@ footer {
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: 30%;
+    width: 40%;
 }
 .success-container h1 {
     color: goldenrod;
@@ -474,4 +474,12 @@ footer {
 .bg-coupons {
     height: 100%;
     padding-top: 5rem;
+}
+
+
+.no-requests-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
 }
