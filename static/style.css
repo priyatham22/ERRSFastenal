@@ -219,7 +219,6 @@ footer {
 
 
 
-
 .custom-styles .form-group {
     margin-bottom: 20px;
 }
@@ -231,20 +230,8 @@ footer {
 .custom-styles h2 {
     margin-bottom: 30px;
 }
-
-/* .custom-styles .btn-primary {
-    background-color: #428bca;
-    border: none;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-} */
-
-/* .custom-styles .btn-primary:hover {
-    background-color: #3071a9;
-} */
-
 .custom-styles .content-section {
     min-width: 400px;
-
     margin: 0 15rem;
     background: #ffffff;
     padding: 30px;
@@ -281,10 +268,11 @@ footer {
     font-weight: 700;
  }
  .form-input {
+    background-color: #F1EFEF;
     width: 100%;
     padding: 1rem;
     margin-bottom: 1rem;
-    border: 2px solid black;
+    border: 2px solid #F1EFEF;
     border-radius: 4px;
  }
  .value-label {
@@ -293,16 +281,14 @@ footer {
  }
 
  .manager-main{
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     gap: 70px;
     margin-top: 5rem;
 }
 
 .manager {
-    max-width: 800px;
+    max-width: 700px;
     margin: 20px auto;
     padding: 20px;
 }
@@ -319,7 +305,6 @@ footer {
 }
  
 .description {
-    width: 38rem;
     height: 5rem;
     padding: 0.5rem 0.5rem;
     border-radius: 8px;
