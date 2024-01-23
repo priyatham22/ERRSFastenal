@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 {% block content %}
 
-<body class="manager-main">
+<section class="manager-main">
     <div class="manager">
         {% if requests|length < 1 %}
         <div style="display: flex;">
@@ -40,5 +40,5 @@
         </div>
         {% endfor %}
     </div>
-</body>
+</section>
 {% endblock %}
