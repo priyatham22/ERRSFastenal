@@ -264,10 +264,9 @@ footer {
 
 
 .request .container {
-
     max-width: 600px; /* Adjust the width as needed */
     margin: 1rem auto; 
-    padding: 2rem;
+    padding: 3rem;
     box-shadow:  0 4px 10px rgba(0, 0, 0, 0.3);/* Blurry shadow effect */
     backdrop-filter: blur(3px);
     border-radius: 2%;
@@ -285,25 +284,14 @@ footer {
  }
  .form-input {
     width: 100%;
-    padding: 0.5rem;
+    padding: 1rem;
     margin-bottom: 1rem;
-    border: 2px solid #3b5998;
+    border: 2px solid black;
     border-radius: 4px;
  }
  .value-label {
     color: black;
     font-weight: 700;
- }
- 
- .submit-btn {
-    background-color: #000000;
-    color: #fff;
-    border: none;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
- }
- .submit-btn:hover {
-    background-color: #0a68bb;
  }
 
  .manager-main{
@@ -322,18 +310,10 @@ footer {
 }
  
 .box {
-    border: 2px solid black;
-    border-radius: 8px;
     margin-bottom: 20px;
     padding: 20px;
-    background-color: lightblue;
-}
- 
-.value-info {
-    /* Style for the "value" on the top right */
-    float: right;
-    color: #3b5998;
-    font-weight: bold;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
  
 .content-container {
@@ -341,33 +321,24 @@ footer {
 }
  
 .description {
-    width: 600px;
-    border: 2px solid lightblue;
-    border-radius: 2%;
-    height: 80px;
-    justify-content: center;
-
+    width: 38rem;
+    height: 5rem;
+    padding: 0.5rem 0.5rem;
+    border-radius: 8px;
+    background-color: #F1EFEF;
+    margin-bottom: 1rem;
 }
  
 .buttons {
     margin-top: 20px;
+    padding: 0rem 2rem;
     display: flex;
     justify-content: space-between;
 }
  
 .manager button {
-    padding: 10px;
-    background-color: #428bca;
-    color: white;
-    border: none;
-    cursor: pointer;
+    padding: 0.5rem 4rem;
 }
- 
-.manager button:hover {
-    background-color: #3071a9;
-}
-
-/* after this all css is added by me */
 
 .redeem-styles .form-group {
     margin-bottom: 20px;
@@ -385,7 +356,7 @@ footer {
     font-weight:bolder;
 }
 
-.redeem-styles .btn-danger {
+/* .redeem-styles .btn-danger {
     background-color: #000;
     border: none;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
@@ -393,7 +364,7 @@ footer {
 
 .redeem-styles .btn-danger:hover {
     background-color: #c32d2d;
-}
+} */
 
 .redeem-styles .content-section {
     width: 85%;
