@@ -1,150 +1,259 @@
-{% extends "layout.html" %}
-{% block content %}
+{% extends "layout.html" %} {% block content %}
 <style>
-img {
+  img {
     display: block;
     margin-bottom: 5px;
-}
+  }
 
-label {
+  label {
     display: block;
     margin-bottom: 5px;
-}
+  }
 </style>
 <div class="redeem-styles">
-    <div class="content-section">
-        <h2>Redeem Your {{points}} Points</h2>
-        <form action="{{ url_for('redeem_points') }}" method="post">
-            <div class="form-group">
-                <div class="form-check form-check-inline">
-                    <img src="/static/img/zomato.png" alt="" width="290px" height="130px">
-                    <label for="zomato">Zomato Gift Card</label>
-                    <input type="radio" name="redeem_option" value="zomato" id="zomato_enabled" onclick="updateDropdownEnabled('zomato', `{{ points }}`)">
-                    <select name="zomato_points" id="zomato_points" disabled>
-                        <option value="0">--Select from below options--</option>
-                        <option value="50">Get 50/- off using 50 points</option>
-                        <option value="100">Get 100/- off using 100 points</option>
-                        <option value="200">Get 200/- off using 200 points</option>
-                        <option value="500">Get 500/- off using 500 points</option>
-                    </select>
-                </div>
+  <div class="content-section">
+    <h2>Redeem Your {{points}} Points</h2>
+    <form action="{{ url_for('redeem_points') }}" method="post">
+      <div class="form-group">
+        <div class="form-check form-check-inline">
+          <img
+            src="/static/img/zomato.png"
+            alt=""
+            width="290px"
+            height="130px"
+            onclick="updateDropdownEnabled('zomato', `{{ points }}`)"
+          />
+          <label for="zomato">Zomato Gift Card</label>
+          <input
+            type="radio"
+            name="redeem_option"
+            value="zomato"
+            id="zomato_enabled"
+            onclick="updateDropdownEnabled('zomato', `{{ points }}`)"
+          />
+          <select name="zomato_points" id="zomato_points" disabled>
+            <option value="0">--Select from below options--</option>
+            <option value="50">Get 50/- off using 50 points</option>
+            <option value="100">Get 100/- off using 100 points</option>
+            <option value="200">Get 200/- off using 200 points</option>
+            <option value="500">Get 500/- off using 500 points</option>
+          </select>
+        </div>
 
-                <div class="form-check form-check-inline">
-                    <img src="/static/img/amazon.png" alt="" width="290px" height="130px">
-                    <label for="amazon">Amazon Gift Card</label>
-                    <input type="radio" name="redeem_option" value="amazon" id="amazon_enabled" onclick="updateDropdownEnabled('amazon', `{{ points }}`)">
-                    <select name="amazon_points" id="amazon_points" disabled>
-                        <option value="0">--Select from below options--</option>
-                        <option value="100">Get 100/- off using 100 points</option>
-                        <option value="500">Get 500/- off using 500 points</option>
-                        <option value="800">Get 800/- off using 800 points</option>
-                    </select>
-                </div>
+        <div class="form-check form-check-inline">
+          <img
+            src="/static/img/amazon.png"
+            alt=""
+            width="290px"
+            height="130px"
+            onclick="updateDropdownEnabled('amazon', `{{ points }}`)"
+          />
+          <label for="amazon">Amazon Gift Card</label>
+          <input
+            type="radio"
+            name="redeem_option"
+            value="amazon"
+            id="amazon_enabled"
+            onclick="updateDropdownEnabled('amazon', `{{ points }}`)"
+          />
+          <select name="amazon_points" id="amazon_points" disabled>
+            <option value="0">--Select from below options--</option>
+            <option value="100">Get 100/- off using 100 points</option>
+            <option value="500">Get 500/- off using 500 points</option>
+            <option value="800">Get 800/- off using 800 points</option>
+          </select>
+        </div>
 
-                <div class="form-check form-check-inline">
-                    <img src="/static/img/MMT.png" alt="" width="290px" height="130px">
-                    <label for="mmt">MakeMyTrip Voucher</label>
-                    <input type="radio" name="redeem_option" value="MakeMyTrip" id="MakeMyTrip_enabled" onclick="updateDropdownEnabled('MakeMyTrip', `{{ points }}`)">
-                    <select name="MakeMyTrip_points" id="MakeMyTrip_points" disabled>
-                        <option value="0">--Select from below options--</option>
-                        <option value="500">Get 500/- off using 500 points</option>
-                        <option value="750">Get 750/- off using 750 points</option>
-                        <option value="1000">Get 1000/- off using 1000 points</option>
-                    </select>
-                </div>
+        <div class="form-check form-check-inline">
+          <img
+            src="/static/img/MMT.png"
+            alt=""
+            width="290px"
+            height="130px"
+            onclick="updateDropdownEnabled('MakeMyTrip', `{{ points }}`)"
+          />
+          <label for="mmt">MakeMyTrip Voucher</label>
+          <input
+            type="radio"
+            name="redeem_option"
+            value="MakeMyTrip"
+            id="MakeMyTrip_enabled"
+            onclick="updateDropdownEnabled('MakeMyTrip', `{{ points }}`)"
+          />
+          <select name="MakeMyTrip_points" id="MakeMyTrip_points" disabled>
+            <option value="0">--Select from below options--</option>
+            <option value="500">Get 500/- off using 500 points</option>
+            <option value="750">Get 750/- off using 750 points</option>
+            <option value="1000">Get 1000/- off using 1000 points</option>
+          </select>
+        </div>
 
-                <div class="form-check form-check-inline">
-                    <img src="/static/img/dominos.png" alt="" width="290px" height="130px">
-                    <label for="Dominos">Dominos Gift Card</label>
-                    <input type="radio" name="redeem_option" value="Dominos" id="Dominos_enabled" onclick="updateDropdownEnabled('Dominos', `{{ points }}`)">
-                    <select name="Dominos_points" id="Dominos_points" disabled>
-                        <option value="0">--Select from below options--</option>
-                        <option value="50">Get 50/- off using 50 points</option>
-                        <option value="100">Get 100/- off using 100 points</option>
-                        <option value="200">Get 200/- off using 200 points</option>
-                        <option value="500">Get 500/- off using 500 points</option>
-                    </select>
-                </div>
+        <div class="form-check form-check-inline">
+          <img
+            src="/static/img/dominos.png"
+            alt=""
+            width="290px"
+            height="130px"
+            onclick="updateDropdownEnabled('Dominos', `{{ points }}`)"
+          />
+          <label for="Dominos">Dominos Gift Card</label>
+          <input
+            type="radio"
+            name="redeem_option"
+            value="Dominos"
+            id="Dominos_enabled"
+            onclick="updateDropdownEnabled('Dominos', `{{ points }}`)"
+          />
+          <select name="Dominos_points" id="Dominos_points" disabled>
+            <option value="0">--Select from below options--</option>
+            <option value="50">Get 50/- off using 50 points</option>
+            <option value="100">Get 100/- off using 100 points</option>
+            <option value="200">Get 200/- off using 200 points</option>
+            <option value="500">Get 500/- off using 500 points</option>
+          </select>
+        </div>
 
-                <div class="form-check form-check-inline">
-                    <img src="/static/img/Bata.png" alt="" width="290px" height="130px">
-                    <label for="Bata">Bata Gift Card</label>
-                    <input type="radio" name="redeem_option" value="Bata" id="Bata_enabled" onclick="updateDropdownEnabled('Bata', `{{ points }}`)">
-                    <select name="Bata_points" id="Bata_points" disabled>
-                        <option value="0">--Select from below options--</option>
-                        <option value="100">Get 100/- off using 100 points</option>
-                        <option value="500">Get 500/- off using 500 points</option>
-                        <option value="800">Get 800/- off using 800 points</option>
-                    </select>
-                </div>
+        <div class="form-check form-check-inline">
+          <img
+            src="/static/img/Bata.png"
+            alt=""
+            width="290px"
+            height="130px"
+            onclick="updateDropdownEnabled('Bata', `{{ points }}`)"
+          />
+          <label for="Bata">Bata Gift Card</label>
+          <input
+            type="radio"
+            name="redeem_option"
+            value="Bata"
+            id="Bata_enabled"
+            onclick="updateDropdownEnabled('Bata', `{{ points }}`)"
+          />
+          <select name="Bata_points" id="Bata_points" disabled>
+            <option value="0">--Select from below options--</option>
+            <option value="100">Get 100/- off using 100 points</option>
+            <option value="500">Get 500/- off using 500 points</option>
+            <option value="800">Get 800/- off using 800 points</option>
+          </select>
+        </div>
 
-                <div class="form-check form-check-inline">
-                    <img src="/static/img/croma.png" alt="" width="290px" height="130px">
-                    <label for="Croma">Croma Gift Card</label>
-                    <input type="radio" name="redeem_option" value="Croma" id="Croma_enabled" onclick="updateDropdownEnabled('Croma', `{{ points }}`)">
-                    <select name="Croma_points" id="Croma_points" disabled>
-                        <option value="0">--Select from below options--</option>
-                        <option value="500">Get 500/- off using 500 points</option>
-                        <option value="750">Get 750/- off using 750 points</option>
-                        <option value="1000">Get 1000/- off using 1000 points</option>
-                    </select>
-                </div>
+        <div class="form-check form-check-inline">
+          <img
+            src="/static/img/croma.png"
+            alt=""
+            width="290px"
+            height="130px"
+            onclick="updateDropdownEnabled('Croma', `{{ points }}`)"
+          />
+          <label for="Croma">Croma Gift Card</label>
+          <input
+            type="radio"
+            name="redeem_option"
+            value="Croma"
+            id="Croma_enabled"
+            onclick="updateDropdownEnabled('Croma', `{{ points }}`)"
+          />
+          <select name="Croma_points" id="Croma_points" disabled>
+            <option value="0">--Select from below options--</option>
+            <option value="500">Get 500/- off using 500 points</option>
+            <option value="750">Get 750/- off using 750 points</option>
+            <option value="1000">Get 1000/- off using 1000 points</option>
+          </select>
+        </div>
 
-                <div class="form-check form-check-inline">
-                    <img src="/static/img/Prestige.png" alt="" width="290px" height="130px">
-                    <label for="Prestige">Prestige Gift Card</label>
-                    <input type="radio" name="redeem_option" value="Prestige" id="Prestige_enabled" onclick="updateDropdownEnabled('Prestige', `{{ points }}`)">
-                    <select name="Prestige_points" id="Prestige_points" disabled>
-                        <option value="0">--Select from below options--</option>
-                        <option value="100">Get 100/- off using 100 points</option>
-                        <option value="500">Get 500/- off using 500 points</option>
-                        <option value="800">Get 800/- off using 800 points</option>
-                    </select>
-                </div>
+        <div class="form-check form-check-inline">
+          <img
+            src="/static/img/Prestige.png"
+            alt=""
+            width="290px"
+            height="130px"
+            onclick="updateDropdownEnabled('Prestige', `{{ points }}`)"
+          />
+          <label for="Prestige">Prestige Gift Card</label>
+          <input
+            type="radio"
+            name="redeem_option"
+            value="Prestige"
+            id="Prestige_enabled"
+            onclick="updateDropdownEnabled('Prestige', `{{ points }}`)"
+          />
+          <select name="Prestige_points" id="Prestige_points" disabled>
+            <option value="0">--Select from below options--</option>
+            <option value="100">Get 100/- off using 100 points</option>
+            <option value="500">Get 500/- off using 500 points</option>
+            <option value="800">Get 800/- off using 800 points</option>
+          </select>
+        </div>
 
-                <div class="form-check form-check-inline">
-                    <img src="/static/img/Swiggy.png" alt="" width="290px" height="130px">
-                    <label for="Swiggy">Swiggy Gift Card</label>
-                    <input type="radio" name="redeem_option" value="Swiggy" id="Swiggy_enabled" onclick="updateDropdownEnabled('Swiggy', `{{ points }}`)">
-                    <select name="Swiggy_points" id="Swiggy_points" disabled>
-                        <option value="0">--Select from below options--</option>
-                        <option value="50">Get 50/- off using 50 points</option>
-                        <option value="100">Get 100/- off using 100 points</option>
-                        <option value="200">Get 200/- off using 200 points</option>
-                        <option value="10">Get 500/- off using 500 points</option>
-                    </select>
-                </div>
+        <div class="form-check form-check-inline">
+          <img
+            src="/static/img/Swiggy.png"
+            alt=""
+            width="290px"
+            height="130px"
+            onclick="updateDropdownEnabled('Swiggy', `{{ points }}`)"
+          />
+          <label for="Swiggy">Swiggy Gift Card</label>
+          <input
+            type="radio"
+            name="redeem_option"
+            value="Swiggy"
+            id="Swiggy_enabled"
+            onclick="updateDropdownEnabled('Swiggy', `{{ points }}`)"
+          />
+          <select name="Swiggy_points" id="Swiggy_points" disabled>
+            <option value="0">--Select from below options--</option>
+            <option value="50">Get 50/- off using 50 points</option>
+            <option value="100">Get 100/- off using 100 points</option>
+            <option value="200">Get 200/- off using 200 points</option>
+            <option value="10">Get 500/- off using 500 points</option>
+          </select>
+        </div>
 
-                <div class="form-check form-check-inline">
-                    <img src="/static/img/netmeds.png" alt="" width="290px" height="130px">
-                    <label for="Netmeds">Netmeds Gift Card</label>
-                    <input type="radio" name="redeem_option" value="Netmeds" id="Netmeds_enabled" onclick="updateDropdownEnabled('Netmeds', `{{ points }}`)">
-                    <select name="Netmeds_points" id="Netmeds_points" disabled>
-                        <option value="0">--Select from below options--</option>
-                        <option value="500">Get 500/- off using 500 points</option>
-                        <option value="750">Get 750/- off using 750 points</option>
-                        <option value="1000">Get 1000/- off using 1000 points</option>
-                    </select>
-                </div>
-            </div>
+        <div class="form-check form-check-inline">
+          <img
+            src="/static/img/netmeds.png"
+            alt=""
+            width="290px"
+            height="130px"
+            onclick="updateDropdownEnabled('Netmeds', `{{ points }}`)"
+          />
+          <label for="Netmeds">Netmeds Gift Card</label>
+          <input
+            type="radio"
+            name="redeem_option"
+            value="Netmeds"
+            id="Netmeds_enabled"
+            onclick="updateDropdownEnabled('Netmeds', `{{ points }}`)"
+          />
+          <select name="Netmeds_points" id="Netmeds_points" disabled>
+            <option value="0">--Select from below options--</option>
+            <option value="100">Get 100/- off using 100 points</option>
+            <option value="500">Get 500/- off using 500 points</option>
+            <option value="750">Get 750/- off using 750 points</option>
+            <option value="1000">Get 1000/- off using 1000 points</option>
+          </select>
+        </div>
+      </div>
 
-            <div class="form-group" align="center">
-                <button type="submit" class="btn btn-dark">Redeem Points</button>
-            </div>
-        </form>
-    </div>
+      <div class="form-group" align="center">
+        <button type="submit" class="btn btn-dark">Redeem Points</button>
+      </div>
+    </form>
+  </div>
 </div>
 <script>
-    function updateDropdownEnabled(option, userPoints) 
-    {
-        var pointsDropdown = document.getElementById(option + '_points');
-        var options = pointsDropdown.options;
-        pointsDropdown.disabled = false;
-        for (var i = 0; i < options.length; i++) 
-        {
-            options[i].style.display = (parseInt(options[i].value) <= userPoints) ? 'block' : 'none';
-        }
+  function updateDropdownEnabled(option, userPoints) {
+    var r_button = document.getElementById(option + "_enabled");
+    r_button.checked = true;
+    var pointsDropdown = document.getElementById(option + "_points");
+    var options = pointsDropdown.options;
+    pointsDropdown.disabled = false;
+    for (var i = 0; i < options.length; i++) {
+      options[i].style.display =
+        parseInt(options[i].value) <= userPoints ? "block" : "none";
     }
+  }
 </script>
 
 {% endblock %}
