@@ -1,65 +1,79 @@
-{% extends "layout.html" %}
-{% block content %}
+{% extends "layout.html" %} {% block content %}
 <div align="center">
-<div class="col-lg-6">
+  <div class="col-lg-6">
     <div class="card profile">
-        <div class="card-body">
-            <div class="row mb-3">
-                <div class="col-sm-12 display-1">
-                    <h2 class="mb-1"><strong>User Profile</strong></h2>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-sm-5">
-                    <h5 class="mb-0">Employee ID</h5>
-                </div>
-                <div class="col-sm-7 text-secondary">
-                    <input type="text" class="form-control" value="{{id}}" disabled>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-sm-5">
-                    <h5 class="mb-0">Employee Name</h5>
-                </div>
-                <div class="col-sm-7 text-secondary">
-                    <input type="text" class="form-control" value="{{name}}" disabled>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-sm-5">
-                    <h5 class="mb-0">Manager</h5>
-                </div>
-                <div class="col-sm-7 text-secondary">
-                    <input type="text" class="form-control" value="{{manager}}" disabled>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-sm-5">
-                    <h5 class="mb-0">Total points Earned</h5>
-                </div>
-                <div class="col-sm-7 text-secondary">
-                    <input type="text" class="form-control" value="{{points}}  points" disabled>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-sm-5">
-                    <h5 class="mb-0">Current Balance</h5>
-                </div>
-                <div class="col-sm-7 text-secondary">
-                    <input type="text" class="form-control" value="{{curr_points}} points" disabled>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-4"></div>
-                <div class="col-sm-2 text-secondary">
-                    
-                </div>
-                <div class="col-sm-5 text-secondary">
-                    <button class="btn btn-dark px-4">  <a class="profile-btn" href="/coupons">View Coupons</a></button>
-                </div>
-            </div>
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-sm-12 display-1">
+            <h2 class="mb-1"><strong>User Profile</strong></h2>
+          </div>
         </div>
+        <div class="row mb-3">
+          <div class="col-sm-5">
+            <h5 class="mb-0">Employee ID</h5>
+          </div>
+          <div class="col-sm-7 text-secondary">
+            <input type="text" class="form-control" value="{{id}}" disabled />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-sm-5">
+            <h5 class="mb-0">Employee Name</h5>
+          </div>
+          <div class="col-sm-7 text-secondary">
+            <input type="text" class="form-control" value="{{name}}" disabled />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-sm-5">
+            <h5 class="mb-0">Manager Name</h5>
+          </div>
+          <div class="col-sm-7 text-secondary">
+            <input
+              type="text"
+              class="form-control"
+              value="{{manager}}"
+              disabled
+            />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-sm-5">
+            <h5 class="mb-0">Total points Earned</h5>
+          </div>
+          <div class="col-sm-7 text-secondary">
+            <input
+              type="text"
+              class="form-control"
+              value="{{points}}  points"
+              disabled
+            />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-sm-5">
+            <h5 class="mb-0">Current Balance</h5>
+          </div>
+          <div class="col-sm-7 text-secondary">
+            <input
+              type="text"
+              class="form-control"
+              value="{{curr_points}} points"
+              disabled
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4"></div>
+          <div class="col-sm-2 text-secondary"></div>
+          <div class="col-sm-5 text-secondary">
+            <button class="btn btn-dark px-4">
+              <a class="profile-btn" href="/coupons">View Coupons</a>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
 </div>
 {% endblock %}

@@ -9,7 +9,7 @@ from flask_session import Session
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:mayank14@localhost/errp_project'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:Khwahish21@localhost/errp_project'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'secret_key'
 app.config["SESSION_PERMANENT"] = False
@@ -55,7 +55,7 @@ class Likes(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('posts.post_id'),primary_key=True)
     post_id = db.Column(db.Integer, db.ForeignKey('users.user_id'),primary_key=True)
 
-##this is in order to store the coupons generated and let the company know which coupon is valid
+
 class Coupon(db.Model):
     __tablename__ = 'coupons'
     coupon_id = db.Column(db.Integer, primary_key=True)
@@ -295,7 +295,7 @@ def likefunction():
         
     return jsonify({'error': "got error"})
     
-##from here each part is required and is part of redeem
+
 import random
 import string
 def get_random_string(length):
@@ -304,6 +304,8 @@ def get_random_string(length):
      return result_str
 @app.route('/redeem_points', methods=['GET', 'POST'])
 def redeem_points():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
     employee = session['user_id']
     employee_points = User.query.filter_by(user_id=employee).first()
 
