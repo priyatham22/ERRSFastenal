@@ -339,6 +339,13 @@ footer {
     font-weight:bolder;
 }
 
+.redeem-styles img{
+    transition: 0.5s;
+}
+
+.redeem-styles img:hover{
+    transform: scale(0.85);
+}
 
 .redeem-styles .content-section {
     width: 85%;
@@ -418,7 +425,7 @@ footer {
 }
 
 .bg-coupons {
-    background-image: url('/static/img/bgimage.avif');
+    background-image: url('/static/img/bgimage4.jpg');
     opacity: 0.8;
         height: 100%;
         padding-top: 5rem;
@@ -427,7 +434,6 @@ footer {
         background-repeat: no-repeat;
         background-size: cover;
 }
-
 
 
 .no-requests-message {

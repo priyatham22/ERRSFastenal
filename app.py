@@ -304,6 +304,8 @@ def get_random_string(length):
      return result_str
 @app.route('/redeem_points', methods=['GET', 'POST'])
 def redeem_points():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
     employee = session['user_id']
     employee_points = User.query.filter_by(user_id=employee).first()
 
