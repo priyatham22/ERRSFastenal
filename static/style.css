@@ -232,8 +232,8 @@ footer {
     margin-bottom: 30px;
 }
 .custom-styles .content-section {
-    min-width: 400px;
-    margin: 5rem 15rem;
+    max-width: 600px;
+    margin: 5rem auto;
     background: #ffffff;
     padding: 30px;
     border-radius: 10px;
