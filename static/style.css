@@ -418,9 +418,16 @@ footer {
 }
 
 .bg-coupons {
-    height: 100%;
-    padding-top: 5rem;
+    background-image: url('/static/img/bgimage.avif');
+    opacity: 0.8;
+        height: 100%;
+        padding-top: 5rem;
+        padding-bottom: 10rem;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
 }
+
 
 
 .no-requests-message {
