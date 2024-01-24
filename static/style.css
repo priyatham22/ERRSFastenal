@@ -347,11 +347,10 @@ footer {
 
 .redeem-styles .content-section {
     width: 85%;
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 10px;
+    padding: 2.5rem;
+    border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    margin-top: 100px;
+    margin: 5rem auto;
 }
 
 .redeem-styles select{
@@ -364,8 +363,8 @@ footer {
 }
 
 .success-container {
-    margin: 0 auto;
-    padding: 20px;
+    margin: 5rem auto;
+    padding: 1.5rem;
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
