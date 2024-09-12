@@ -1,36 +1,46 @@
 {% extends "layout.html" %} 
 {% block content %}
     <div class="outer-content-section">
-        {% for post in posts %}
-        <div class="container mt-5">
-            <div class="blog-post">
+        {% for i in range(0, len) %}
+        <div class="container mt-5" >
+            <div class="card blog-post" id="{{posts[i].post_id}}">
                 <!-- Circular Box for Avatar, Manager Name, Employee Name, and Points -->
                 <div class="avatar-box">
                     <div class="avatar-info">
                         <img src="/static/img/profile.png" alt="M" class="avatar" style="margin-right: 2%">
                         &ensp;
-                        <div><b>{{post.user_name}}</b></div>
+                        <div><b>{{posts[i].user_name}}</b></div>
                     </div>
-                    <div><b>Date:</b> {{post.time}}</div>
+                    <div><b>Date:</b> {{posts[i].timestamp}}</div>
                 </div>
                 <!-- Employee Name and Points -->
                 <div class="employee-points">
-                    <div><i>Appreciated By</i> <b>{{post.manager_name}}</b></div>
-                    <div><b>Points:</b> {{post.post_points}}</div>
+                    <div><i>Appreciated By</i> <b>{{posts[i].manager_name}}</b></div>
+                    <div><b>Points:</b> <span id="{{posts[i].post_id}}points">{{posts[i].points}}</span></div>
                 </div>
     
                 <!-- Content Box with Values and V1, V2 Sub-boxes -->
                 <div class="content-box">
                     <!-- Variable Content Goes Here -->
-                    <p>{{post.content}}</p>
+                    <p>{{posts[i].content}}</p>
                     <!-- End Variable Content -->
                 </div>
                 <div class="v-box">
-                    <!-- <div style="text-align: center;font-weight: bold;" class="v-sub-box">{{post.category}}</div> -->
-                    <button type="button" class="btn btn-light v-sub-box">{{ post.category }}</button>
+                    
+                    <button 
+                    {%if posts[i].liked==True%}
+                    class="btn btn-light v-sub-box liked" onclick="unliked('{{posts[i].post_id}}')"
+                    {%else%}
+                    class="btn btn-light v-sub-box unliked" onclick="liked('{{posts[i].post_id}}')" 
+                    {%endif%}
+                    id='{{posts[i].post_id}}button' style="border: var(--bs-card-border-width) solid var(--bs-card-border-color);">
+                    
+                        <i class="fa fa-heart"></i>
+                    </button>
+                    <button type="button" class="btn btn-light v-sub-box" style="margin-right: 0;">{{ posts[i].category }}</button>
                 </div>
             </div>
         </div>
-        {% endfor %} 
+        {% endfor %}
+    </div>
 {% endblock content %}
-

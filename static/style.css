@@ -1,6 +1,6 @@
 body {
     font-family: 'Outfit', sans-serif;
-    margin-top: 5rem;
+    /* margin-top: 5rem; */
 }
 
 .bg-home {
@@ -12,9 +12,15 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }
-
+.login-box {
+    max-width: 600px;
+    margin: 5rem auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
 .login {
-    padding: 2rem 25rem;
+    margin: 2rem 1rem;
 }
 .submit {
     margin-top: 1rem;
@@ -30,14 +36,6 @@ body {
     margin-bottom: 20px;
 }
   
-.article-title {
-    color: #444444;
-}
-  
-.article-title:hover {
-    color: #428bca;
-    text-decoration: none;
-}
   
 .article-content {
     white-space: pre-line;
@@ -78,27 +76,25 @@ body {
 }
 
 .leaderboard {
-    margin: 5rem 10rem;
+    margin: 0rem 10rem;
     border: 2px solid black;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .bg-leaderboard {
     background-image: url('/static/img/leaderboard-img.jpg');
     opacity: 0.8;
-    height: 100%;
-    padding-top: 150px;
-    padding-bottom: 150px;
+    padding-top: 10rem;
+    padding-bottom: 5rem;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 footer {
-    /* position: fixed; */
-    left: 0;
     bottom: 0;
     width: 100%;
-    margin-top: 5rem;
+    /* margin-top: 5rem; */
     background-color: #212529;
     text-align: center;
     padding: 3rem;
@@ -129,13 +125,18 @@ footer {
 }
 
 
+.outer-content-section {
+    margin-top: 5rem;
+    padding-top: 0.5rem;
+    margin-bottom: 5rem;
+}
 
 .blog-post {
     max-width: 600px;
     margin: 20px auto;
     padding: 20px;
-    border: 2px solid #3b5998;
     border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .avatar-box {
@@ -146,8 +147,8 @@ footer {
 }
 
 .avatar {
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     background-color: #007bff;
     color: #fff;
@@ -173,7 +174,8 @@ footer {
 }
 
 .content-box {
-    border: 2px solid #3b5998;
+    border-radius: 8px;
+    background-color: #F1EFEF;
     padding: 15px;
     margin-bottom: 20px;
     position: relative;
@@ -196,8 +198,27 @@ footer {
     width:50%;
     margin-right: 10px;
     padding: 10px;
-    border: 2px solid #3b5998;
+    background-color: #F1EFEF;
+    /* border: 2px solid #3b5998; */
 }
+
+.liked{
+    background-color: red;
+}
+
+.liked:hover{
+    background-color: red;
+}
+
+.unliked:hover{
+    background-color: red;
+}
+
+.unliked{
+    background-color: white;
+}
+
+
 
 .custom-styles .form-group {
     margin-bottom: 20px;
@@ -208,32 +229,212 @@ footer {
 }
 
 .custom-styles h2 {
-    color:  #3b5998;
     margin-bottom: 30px;
 }
-
-.custom-styles .btn-primary {
-    background-color: #428bca;
-    border: none;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.custom-styles .btn-primary:hover {
-    background-color: #3071a9;
-}
-
 .custom-styles .content-section {
-    margin: 0 15rem;
+    max-width: 600px;
+    margin: 5rem auto;
     background: #ffffff;
     padding: 30px;
-    border: 2px solid #3b5998;
     border-radius: 10px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     margin-top: 150px;
 }
 
 .custom-styles select,
 .custom-styles textarea {
-    border: 2px solid #3b5998;
+    background-color: #F1EFEF;
+
     padding: 8px;
+}
+
+
+.request .container {
+    max-width: 600px; /* Adjust the width as needed */
+    margin: 5rem auto; 
+    padding: 3rem;
+    box-shadow:  0 4px 10px rgba(0, 0, 0, 0.3);/* Blurry shadow effect */
+    backdrop-filter: blur(3px);
+    border-radius: 2%;
+    color:black;
+}
+.radio-input {
+    margin-right: 5%;
+}
+.form-title {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+ }
+ .form-label {
+    color: black;
+    font-weight: 700;
+ }
+ .form-input {
+    background-color: #F1EFEF;
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 2px solid #F1EFEF;
+    border-radius: 4px;
+ }
+ .value-label {
+    color: black;
+    font-weight: 700;
+ }
+
+ .manager-main{
+    margin: 5rem auto;
+}
+
+.manager {
+    max-width: 700px;
+    margin: 3rem auto;
+    padding: 2rem;
+}
+ 
+.box {
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+ 
+.content-container {
+    margin-top: 20px;
+}
+ 
+.description {
+    height: 5rem;
+    padding: 0.5rem 0.5rem;
+    border-radius: 8px;
+    background-color: #F1EFEF;
+    margin-bottom: 1rem;
+}
+ 
+.buttons {
+    margin-top: 20px;
+    padding: 0rem 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+ 
+.manager button {
+    padding: 0.5rem 4rem;
+}
+
+.redeem-styles .form-group {
+    margin-bottom: 20px;
+}
+
+.redeem-styles label {
+    text-align: center;
+    font-weight: bold;
+}
+
+.redeem-styles h2 {
+    text-align: center;
+    color: #000000;
+    margin-bottom: 30px;
+    font-weight:bolder;
+}
+
+.redeem-styles img{
+    transition: 0.5s;
+}
+
+.redeem-styles img:hover{
+    transform: scale(0.85);
+}
+
+.redeem-styles .content-section {
+    width: 90%;
+    padding: 2.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    margin: 5rem auto;
+}
+
+.redeem-styles select{
+    margin-bottom:20px;
+    border: 2px solid #535565; 
+    border-radius: 5px;
+    padding: 8px;
+    color: rgb(91, 89, 89);
+    font-weight:bold;
+}
+
+.success-container {
+    margin: 5rem auto;
+    padding: 1.5rem;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    width: 40%;
+}
+.success-container h1 {
+    color: goldenrod;
+    font-size: 36px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+.voucher-card {
+    background-color: #F1EFEF;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 20px;
+    text-align:left;
+}
+.voucher-card h2 {
+    color: goldenrod;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+ .voucher-card p {
+    color: black;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+.voucher-card p:last-child {
+    margin-bottom: 0;
+}
+
+.profile-btn
+{
+    color: #f2f2f2;
+    text-decoration: none;
+}
+.profile {
+    margin: 5rem auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.fadeOut {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+.coupons {
+    margin: 5rem 10rem;
+    border: 2px solid black;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.bg-coupons {
+    background-image: url('/static/img/voucher.jpg');
+    opacity: 0.8;
+        height: 100%;
+        padding-top: 5rem;
+        padding-bottom: 10rem;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+}
+
+
+.no-requests-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
 }

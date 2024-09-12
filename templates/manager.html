@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+
+<div class="manager-main">
+    <div class="manager">
+        {% if requests|length < 1 %}
+        <div class="d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+            <h1><b>There are no new requests</b></h1>
+        </div>
+        {% endif %}
+
+        {% for request in requests %}
+        <div class="box" data-post-id="{{ request.request_id }}">
+            <div class="user-info">
+                <h4 style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                    <b>Requested By: {{ request.user.name }}</b>
+                </h4>
+            </div>
+            <div class="content-container">
+                <h5><b>Description</b></h5>
+                <div class="description">
+                    {{ request.description }}
+                </div>
+                <div class="value-info">
+                    <h5 style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Value: {{ request.values }}</h5>
+                </div>
+            </div>
+            <!-- Accept and Decline buttons -->
+            <div class="buttons">
+                <a href="{{ url_for('new_blog', user_id=request.user_id, description=request.description, values=request.values, request_id=request.request_id, is_manager_view=true) }}">
+                    <button class="acceptBtn btn btn-dark">Accept</button>
+                </a>
+                <button class="declineBtn btn btn-dark">Decline</button>
+            </div>               
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

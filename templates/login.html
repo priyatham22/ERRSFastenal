@@ -1,11 +1,11 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<div class="login">
+<div class="login-box">
+  <div class="login">
     <main class="form-signin w-100 m-auto">
         <form method="post" action="{{ url_for('login') }}">
-          <!-- <img class="mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
-          <h1 class="h3 mb-3 fw-normal">ERRS Fastenal</h1>
+          <h1 class="h2 mb-3 fw-normal"><strong>ERRP Fastenal</strong></h1>
       
           <div class="form-floating" style="margin-bottom: 0.5rem;">
             <input type="text" class="form-control" placeholder="name@example.com" name="username" required>
@@ -22,7 +22,7 @@
               Remember me
             </label>
           </div> -->
-
+  
           <button class="submit btn btn-primary w-100 py-2" type="submit">Login</button>
         </form>
         <!-- <p>Not an existing user? <a href="/register">Register</a></p> -->
@@ -30,6 +30,7 @@
             <p style="color: red;">{{ message }}</p>
         {% endif %}
       </main>
+  </div>
 </div>
-    
+
 {% endblock content %}
